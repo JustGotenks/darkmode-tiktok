@@ -1,0 +1,4738 @@
+/* ==UserStyle==
+@name           Nice TikTok Dark Mode
+@description    Another dark mode theme for TikTok.
+@namespace      github.com/iGotenks/darkmode-tiktok
+@homepageUrl    https://github.com/iGotenks/darkmode-tiktok
+@supportUrl     https://github.com/iGotenks/darkmode-tiktok/issues
+@updateUrl      https://raw.githubusercontent.com/iGotenks/darkmode-tiktok/main/tiktok-dark.user.css
+@author         Gotenks (https://github.com/iGotenks)
+@license        MIT
+@version        1.0.0
+@preprocessor   less
+==/UserStyle== */
+
+
+@black: black;
+@darkest: #121212;
+@darker2: #1e1e1e;
+@darker: #252525;
+@dark2: #2e2e2e;
+@dark: #3e3e3e;
+
+@middle: #5a5a5a;
+
+@light: #6f6f6f;
+@lighter: #a6a6a6;
+@lighterer: #c8c8c8;
+@lightest: #e6e6e6;
+@white: white;
+
+@dividerColor: #404040;
+
+@bgColor: @black;
+@bgSidebarColor: @darkest;
+@bgTopbarColor: @darkest;
+
+@tiktokRed: #fe2c55;
+@tiktokBlue: #59c2e4;
+
+@tiktokRedLight: rgba(@tiktokRed, 0.90);
+@tiktokRedLighter: rgba(@tiktokRed, 0.80);
+
+@orange: orange;
+@blue: #208dec;
+
+@blueLight: rgba(@blue, 0.90);
+@blueLighter: rgba(@blue, 0.80);
+
+
+.bgHover() { background-color: rgba(@light, 0.15); }
+.bgClick() { background-color: rgba(@lighter, 0.20); }
+
+.bgDivider() { background-color: @dividerColor; }
+
+.invert() { filter: invert(1); }
+
+.buttonRed() {
+    background-color: transparent;
+    border: 1px solid @tiktokRedLighter;
+    color: @tiktokRedLighter;
+    &:hover {
+        background-color: transparent;
+        border: 1px solid @tiktokRed;
+        color: @tiktokRed;
+    }
+}
+
+.buttonBlue() {
+    background-color: transparent;
+    border: 1px solid @blueLighter;
+    color: @blueLighter;
+    &:hover {
+        background-color: transparent;
+        border: 1px solid @blue;
+        color: @blue;
+    }
+}
+
+.buttonRedFullDisabled() {
+    color: @white;
+    background-color: @tiktokRed;
+    opacity: 0.25;
+}
+
+.backdrop() {
+    background: rgba(0, 0, 0, 0.5);
+}
+
+
+@-moz-document regexp("https://www.tiktok.com/(?!messages|upload|setting|feedback).*") {
+
+
+// Top bar from "/"
+#app div.tiktok-12azhi0-DivHeaderContainer {
+    background: @bgTopbarColor;
+    box-shadow: rgb(0 0 0) 0px -2px 14px 0px;
+
+    > div[class*="-DivHeaderWrapperMain"] {
+        // Left (Logo)
+        > a use,
+        > div[class*="-DivLeftContainer"] a use {
+            .invert();
+        }
+
+        // Middle (Search Box)
+        > div.tiktok-1x100u9-DivHeaderCenterContainer > div > form {
+            .bgHover();
+
+            &:focus-within {
+                // input text
+                > input {
+                    color: @lighter;
+
+                    &:not([value=""]) {
+                        // divider
+                        ~ span {
+                            background: @light;
+                        }
+                        // search button
+                        ~ button > svg path {
+                            fill: @light;
+                        }
+                    } 
+                }
+                // (X|loading) Icon
+                > div > svg path {
+                    fill: @light;
+                }
+            }
+
+            // input text
+            > input {
+                color: @middle;
+
+                &::placeholder {
+                    color: @middle;
+                }
+            }
+            // (X|loading) Icon
+            > div > svg path {
+                fill: @dark;
+            }
+            // divider
+            > span {
+                background: @dark;
+            }
+            // search button
+            > button > svg path {
+                fill: @dark;
+            }
+
+            // search results popup
+            + div.tiktok-11xyjxo-DivContainer {
+                background: @darker;
+
+                > div {
+                    // hover over suggestions
+                    &:hover:not(.tiktok-1gh4pci-DivSugAccountTitle) {
+                        .bgHover();
+                    }
+                    // content suggestion
+                    &[data-e2e="content-sug-item"] {
+                        // small search icon
+                        svg path {
+                            fill: @lighterer;
+                        }
+                        // text
+                        h4 {
+                            color: @lighterer;
+                        }
+                    }
+                    // "Accounts" text
+                    &.tiktok-1gh4pci-DivSugAccountTitle {
+                        color: @white;
+                    }
+                    // user suggestion
+                    &[data-e2e="user-sug-item"] {
+                        // username
+                        h4 {
+                            color: @lighterer
+                        }
+                        // name
+                        p {
+                            color: @light;
+                        }
+                    }
+                    // "View all results for < >" text
+                    &:last-child {
+                        p {
+                            color: @white;
+                        }
+                    }
+                }
+            }
+        }
+
+        // Right (Upload, Messages, Inbox, & profile)
+        > div.tiktok-ba55d9-DivHeaderRightContainer {
+            > div {
+                // Upload AND "Get coins" => ("Get coins" only on /live)
+                &[data-e2e="upload-icon"] div,
+                &[data-e2e="recharge-icon"] {
+                    border-color: @lighterer;
+                    &:hover {
+                        border-color: @white;
+                        > svg path {
+                            fill: @white;
+                        }
+                        > span,
+                        > h2 {
+                            color: @white;
+                        }
+                    }
+                    > svg path {
+                        fill: @lighterer;
+                    }
+                    > span,
+                    > h2 {
+                        color: @lighterer;
+                    }
+                }
+    
+                // Messages
+                &[data-e2e="top-dm-icon"] {
+                    svg path {
+                        fill: @white;
+                    }
+                    // unread message count
+                    sup {
+                        color: @white;
+                        background: @tiktokRed;
+                    }
+                }
+    
+                // Inbox
+                &[data-e2e="inbox-icon"] {
+                    // icon when closed
+                    > span svg path {
+                        fill: @white;
+                    }
+                    // icon when open
+                    > svg path {
+                        fill: @white;
+                    }
+    
+                    // unread inbox count
+                    > sup {
+                        color: @white;
+                        background: @tiktokRed;
+                    }
+    
+                    // popup extended
+                    > div {
+                        background: @darker;
+                        // arrow tip
+                        > svg path {
+                            fill: @darker;
+                        }
+                        > div[data-e2e="inbox-notifications"] > div {
+                            // header
+                            &:not([data-e2e]) {
+                                // "Notifications" title
+                                > h4 {
+                                    color: @white;
+                                }
+                                // group bubbles
+                                > div > span {
+                                    background: transparent;
+                                    border: 1px solid;
+                                    padding: 0 8px;
+    
+                                    // inactive bubbles
+                                    &.tiktok-11g5zco-SpanGroupItem,
+                                    &.tiktok-l70680-SpanGroupItem {
+                                        color: @light;
+                                        &:hover {
+                                            color: @lighter;
+                                        }
+                                    }
+                                }
+                            }
+                            // notification list
+                            &[data-e2e="inbox-list"] {
+                                // titles
+                                > p {
+                                    color: @white;
+                                }
+                                // notification items
+                                > div {
+                                    &:hover {
+                                        .bgHover();
+                                    }
+                                    // Left (multiple avatars)
+                                    > div[data-e2e="inbox-avatar-multiple"] > span {
+                                        border: none;
+                                    }
+                                    // Middle (text|description)
+                                    > div.tiktok-14aeum4-DivContentContainer {
+                                        // usernames
+                                        a[data-e2e="inbox-title"],
+                                        p[data-e2e="inbox-title"] {
+                                            color: @lightest;
+                                        }
+                                        // also usernames
+                                        p[data-e2e="inbox-title"] > a {
+                                            color: @lightest;
+                                        }
+    
+                                        // "replied" and "mentioned" description
+                                        a.tiktok-f83frn-StyledTitleTextLink {
+                                            + p[data-e2e="inbox-content"] {
+                                                color: @light;
+                                                > span {
+                                                    color: @lighter;
+                                                }
+                                            }
+                                            ~ p.tiktok-1axqapw-PDescText-StyledExtraText {
+                                                color: @lighter;
+                                                &::before {
+                                                    background: @lighter;
+                                                }
+                                            }
+                                        }
+    
+                                        // "liked" description
+                                        p.tiktok-1mdj9uu-PTitleText {
+                                            + p[data-e2e="inbox-content"] {
+                                                color: @light;
+                                            }
+                                            ~ p.tiktok-1axqapw-PDescText-StyledExtraText {
+                                                color: @light;
+                                                &::before {
+                                                    background: @light;
+                                                }
+                                            }
+                                        }
+    
+                                        // "following" description
+                                        a.tiktok-1fjyfhy-ATitleLink + p[data-e2e="inbox-content"] {
+                                            color: @light;
+                                        }
+                                    }
+                                    // Right (buttons)
+                                    > button {
+                                        background: transparent;
+                                        // "Follow back"
+                                        &.tiktok-wtyh5j-Button-StyledFollowButton {
+                                            .buttonRed();
+                                        }
+                                        // "Friends"
+                                        &.tiktok-k8k77s-Button-StyledFollowButton {
+                                            .buttonBlue();
+                                        }
+                                    }
+                                }
+                            }
+                        }
+                    }
+                }
+    
+                // Profile (div opens when the user's avatar is hovered over)
+                &[data-e2e="profile-icon"] > div {
+                    background: @darker !important;
+                    // arrow tip
+                    > svg path {
+                        fill: @darker;
+                    }
+    
+                    // options
+                    ul > li {
+                        &:hover {
+                            .bgHover();
+                        }
+                        // text
+                        span {
+                            color: @lighterer;
+                        }
+                        // icons
+                        svg path {
+                            fill: @lighter;
+                        }
+                        // divider
+                        &:last-child {
+                            border-top-color: @dividerColor;
+                        }
+                    }
+                    // language popup
+                    > div[class*="-DivContainer "] {
+                        > div {
+                            // left arrow
+                            i svg path {
+                                fill: @lighterer;
+                            }
+                            // title
+                            p {
+                                color: @lighterer;
+                            }
+                        }
+                        > ul li {
+                            color: @lighterer;
+                            // current language
+                            &.tiktok-i3bfqq-LiListItem,
+                            &.tiktok-xynex9-LiListItem {
+                                color: @white;
+                                background: transparent;
+                                &:hover {
+                                    .bgHover();
+                                }
+                            }
+                        }
+                    }
+    
+                }
+            }
+            // 3 dots (when signed out)
+            i[data-e2e="see-more-icon"] {
+                svg path {
+                    fill: @white;
+                }
+                // more info popup
+                > div {
+                    background-color: @darker !important;
+                    // tip arrow
+                    > svg path {
+                        fill: @darker;
+                    }
+                    li {
+                        &:hover {
+                            .bgHover();
+                        }
+                        svg path {
+                            fill: @lighter;
+                        }
+                        span {
+                            color: @lighter;
+                        }
+                    }
+                }
+            }
+        }
+    }
+}
+
+
+}
+
+@-moz-document regexp("https://www.tiktok.com/(?:messages|upload|setting|feedback).*") {
+
+
+/* Background Color */
+#main,
+.main-body {
+    background: @bgColor !important;
+}
+
+// Top bar from "/messages"
+#main > .header-container {
+    background: @bgTopbarColor;
+    border-bottom: 0;
+    box-shadow: rgb(0 0 0) 0px -2px 14px 0px;
+
+    > div.header-content > div {
+        // Left (TikTok logo)
+        &.hamburger-wrapper a.logo-link > img {
+            .invert();
+        }
+    
+        // Middle (Search Box)
+        &.search-container > form[action="/search"] {
+            .bgHover() !important;
+    
+            // when not in focus-within
+            > input {
+                color: @middle !important;
+    
+                &::placeholder {
+                    color: @middle;
+                }
+                // (X|loading) icon
+                + div svg path {
+                    fill: @dark;
+                }
+                // divider
+                ~ span {
+                    background: @dark !important;
+                }
+                ~ button svg path {
+                    fill: @dark;
+                }
+            }
+    
+            // when in focus-within AND has text
+            &:focus-within input[class$=" with-icon"] {
+                color: @lighter !important;
+    
+                // (X|loading) icon
+                + div svg path {
+                    fill: @light;
+                }
+                // divider
+                ~ span {
+                    background: @light !important;
+                }
+                // search icon
+                ~ button svg path {
+                    fill: @light;
+                }
+            }
+    
+            // while typing
+            > svg[class^="loading-circle"] {
+                // (X|loading) icon
+                path {
+                    fill: @light;
+                }
+                // divider
+                ~ span {
+                    background: @light !important;
+                }
+                // search icon
+                ~ button svg path {
+                    fill: @light;
+                }
+            }
+    
+            // Search Results
+            + div[class$=" sug-container"] {
+                background: @darker !important;
+    
+                // search items
+                > div[class*=" sug-item"] {
+                    // non-accounts results
+                    > div[class$=" sug-search-icon-container"] {
+                        // search icon
+                        svg path {
+                            fill: @lighter;
+                        }
+                        // search text
+                        + div h4 {
+                            color: @lighterer;
+                        }
+                    }
+                    // accounts results
+                    > span[class$=" tiktok-avatar-circle"] + div {
+                        // username
+                        h4 {
+                            color: @lighterer;
+                        }
+                        // name
+                        p {
+                            color: @light;
+                        }
+                    }
+                    // when hovering over results
+                    &.active,
+                    ~ div.sug-more.active {
+                        .bgHover();
+                    }
+                    // "Account" & "View all..." text
+                    ~ div[class*="sug-account-group-title"],
+                    ~ div[class*="sug-more"] p {
+                        color: @lightest;
+                    }
+                }
+            }
+        }
+    
+        // Right (Upload, Messages, Inbox, & profile)
+        &.menu-right > div {
+            // Upload
+            &.upload-wrapper > div.icon-wrapper {
+                border-color: @lighterer;
+                &:hover {
+                    border-color: @white;
+                    > svg path {
+                        fill: @white;
+                    }
+                    > span {
+                        color: @white;
+                    }
+                }
+                > svg path {
+                    fill: @lighterer;
+                }
+                > span {
+                    color: @lighterer;
+                }
+            }
+    
+            // Messages
+            &.icon-container > a div {
+                .invert();
+    
+                // unread messages count
+                > sup {
+                    .invert();
+                    color: @white;
+                    background: @tiktokRed;
+                }
+            }
+    
+            // Inbox
+            &.header-inbox > div {
+                // icon
+                &.header-inbox-icon {
+                    svg path {
+                        fill: @white;
+                    }
+                    // unread inbox count
+                    sup {
+                        color: @white;
+                        background: @tiktokRed;
+                    }
+                } 
+
+                // popup extended
+                &.content-wrap {
+                    background: @darker;
+                    // arrow tip
+                    > img {
+                        -webkit-mask: url("https://lf16-tiktok-web.tiktokcdn-us.com/obj/tiktok-web-tx/tiktok/web/node/_next/static/images/tip_arrow_white-050387fde598df3b2e69dd3d3adb632d.svg") center / 30px no-repeat;
+                        mask: url("https://lf16-tiktok-web.tiktokcdn-us.com/obj/tiktok-web-tx/tiktok/web/node/_next/static/images/tip_arrow_white-050387fde598df3b2e69dd3d3adb632d.svg") center / 30px no-repeat;
+                        background-color: @darker;
+                        content-visibility: hidden;
+                    }
+                    // content
+                    > div.inbox > div {
+                        // notification header
+                        &.inbox-content-header > div {
+                            // "Notifications" title
+                            &.inbox-content-notification {
+                                color: @white;
+                            }
+                            // group bubbles
+                            &.group-wrap span {
+                                background: transparent;
+                                color: @light;
+                                border: 1px solid;
+
+                                &:hover {
+                                    color: @lighter;
+                                }
+                                &.selected {
+                                    color: @lightest;
+                                    border-color: @lightest;
+                                }
+                            }
+                        }
+                        // notification lists
+                        &.notice-list {
+                            // titles
+                            > h4 {
+                                color: @white;
+                            }
+                            // notification items
+                            > div.notification-item {
+                                &:hover {
+                                    .bgHover();
+                                }
+                                // left (profile image[s])
+                                > div.avatar {
+                                    img {
+                                        background: none;
+                                    }
+                                    &.multiple img {
+                                        border: none;
+                                        // border-color: rgba(0, 0, 0, 0.25);
+                                    }
+                                }
+                                // middle (text)
+                                > div.content > div {
+                                    // title
+                                    &.title {
+                                        color: @lightest;
+                                        // usernames
+                                        h4 {
+                                            color: @lightest;
+                                            border: 0;
+                                            &:hover {
+                                                text-decoration: solid underline @lightest;
+                                            }
+                                        }
+                                        // "n others"
+                                        > span {
+                                            border: 0;
+                                            &:hover {
+                                                text-decoration: solid underline @lightest;
+                                            }
+                                        }
+                                    }
+                                    // description
+                                    &.title + div > p {
+                                        // "liked" description
+                                        &.digg_content {
+                                            color: @light;
+                                            > span {
+                                                color: @light;
+                                            }
+                                            // liked comment
+                                            & + p {
+                                                color: @light;
+                                                // icon
+                                                &::before {
+                                                    background: @light;
+                                                }
+                                            }
+                                        }
+    
+                                        // "mentioned" description
+                                        &.at_content {
+                                            color: @lighter;
+                                            > span {
+                                                color: @light;
+                                            }
+                                        }
+    
+                                        // "followed" description
+                                        &.follow_content {
+                                            color: @light;
+                                            > span {
+                                                color: @light;
+                                            }
+                                        }
+    
+                                        // "replied" description
+                                        &.comment_content {
+                                            color: @lighter;
+                                            > span {
+                                                color: @light;
+                                            }
+                                            // replied comment
+                                            & + p {
+                                                color: @lighter;
+                                                // icon
+                                                &::before {
+                                                    background: @lighter;
+                                                }
+                                            }
+                                        }
+
+                                        // follow request accepted
+                                        &.follow_request_approve_content {
+                                            color: @lighter;
+                                            span {
+                                                color: @lighter;
+                                            }
+                                        }
+                                    }
+                                }
+                                // right (images/buttons)
+                                > div.right-wrap button {
+                                    background: transparent;
+                                    // "Follow back"
+                                    &.tiktok-btn-pc-primary {
+                                        .buttonRed();
+                                    }
+                                    // "Friends"
+                                    &:not(.tiktok-btn-pc-primary) {
+                                        .buttonBlue();
+                                    }
+                                }
+                            }
+                        }
+                    }
+                }
+            }
+    
+            // Profile (div is only available when the user's avatar is hovered over)
+            &.avatar > div {
+                background: @darker;
+                > img {
+                    -webkit-mask: url("https://lf16-tiktok-web.tiktokcdn-us.com/obj/tiktok-web-tx/tiktok/web/node/_next/static/images/tip_arrow_white-050387fde598df3b2e69dd3d3adb632d.svg") center / 30px no-repeat;
+                    mask: url("https://lf16-tiktok-web.tiktokcdn-us.com/obj/tiktok-web-tx/tiktok/web/node/_next/static/images/tip_arrow_white-050387fde598df3b2e69dd3d3adb632d.svg") center / 30px no-repeat;
+                    background-color: @darker;
+                    content-visibility: hidden;
+                }
+                // options
+                > div.header-setting-wrap > div {
+                    transition: none;
+                    color: @lighterer;
+                    // highlight option
+                    &:hover {
+                        .bgHover();
+                    }
+                    a {
+                        color: @lighterer;
+                    }
+                    // icons
+                    i svg path {
+                        fill: @lighter;
+                    }
+                    // divider
+                    hr[class$=" logout-line"] {
+                        background: @lighterer;
+                    }
+                    // language popup
+                    &.lang-select-wrap {
+                        background: @darker;
+                        ul > li:hover {
+                            .bgHover();
+                        }
+                    }
+                }
+            }
+
+            // "Keyboard shortcuts" popup
+            &.modal > div > div {
+                // backdrop
+                &.modal-mask {
+                    .backdrop();
+                }
+
+                // content
+                &.modal-content > div {
+                    background: @darker;
+                    > div {
+                        // close button
+                        &.keyboard-shortcut-close {
+                            svg path {
+                                fill: @white;
+                            }
+                        }
+                        // title
+                        &.keyboard-shortcut-title {
+                            color: @white;
+                        }
+                        // text + icons
+                        &.keyboard-shortcut-content > div {
+                            color: @lighter;
+                        }
+                    }
+
+                }
+            }
+        }
+    }
+}
+
+
+}
+
+@-moz-document domain("www.tiktok.com") {
+
+body {
+    background-color: @bgColor;
+}
+
+
+// Side bar layout changes
+#app > [class*="DivBodyContainer "] {
+    max-width: 99vw;
+    align-self: flex-start;
+    -webkit-align-self: flex-start;
+    [class*="DivSideNavMask "] + [class*="DivSideNavContainer "] {
+        position: relative;
+        width: 240px;
+        -webkit-flex: 0 0 240px;
+        -ms-flex: 0 0 240px;
+        flex: 0 0 240px;
+        > [class*="DivScrollContainer-StyledScroll"] {
+            width: 240px;
+        }
+    }
+    @media screen and (max-width: 1071px) {
+        [class*="DivSideNavMask "] + [class*="DivSideNavContainer "] {
+            width:72px;
+            -webkit-flex:0 0 72px;
+            -ms-flex:0 0 72px;
+            flex:0 0 72px;
+            > [class*="DivScrollContainer-StyledScroll"] {
+                padding: 0 8px;
+                width: 72px;
+                -webkit-flex: 0 0 72px;
+                -ms-flex: 0 0 72px;
+                flex: 0 0 72px;
+                border-right: 1px solid rgba(22, 24, 35, 0.12);
+                box-shadow: 0px 2px 8px rgb(0 0 0 / 6%);
+            }
+        }
+    }
+    > [class*="DivMainContainer "] {
+        margin: 0 auto;
+        // padding: 0;
+    }
+}
+
+
+// Side bar
+div.e14l9ebt0 {
+    background: @bgSidebarColor;
+
+    // &:not(:hover) {
+    //     opacity: 0.5;
+    // }
+
+    > .e14l9ebt2 > div {
+        // Main ("For You", "Following", "LIVE") and "Popular topics"
+        &[class*="-DivMainNavContainer"] > div,
+        &[class*="-DivTopicContainer"] > a {
+            border-radius: 5px;
+            transition: none;
+            &:hover {
+                .bgHover();
+            }
+            // selected item
+            svg[fill^="rgba(254,"] {
+                path {
+                    fill: @tiktokRed;
+                    // play icon (on /live only)
+                    &[fill="white"] {
+                        fill: @black;
+                    }
+                }
+                ~ h2 {
+                    color: @tiktokRed;
+                }
+            }
+            // unselected item
+            svg[fill^="rgba(22,"] {
+                path {
+                    fill: @lighter;
+                }
+                ~ h2 {
+                    color: @lighterer;
+                }
+            }
+        }
+        // "Suggested accounts" and "Following accounts"
+        &[class*="-DivUserContainer"] > div {
+            border-radius: 5px;
+            transition: none;
+            &:hover:not([data-e2e]) {
+                .bgHover();
+            }
+            // usernames
+            h4[data-e2e$="-user-title"] {
+                color: @lighterer;
+            }
+            // names
+            p[data-e2e$="-user-desc"] {
+                color: @light;
+            }
+        }
+        // "Suggested hosts" (on /live only)
+        &[class*="-DivSideNavChannel"] > div {
+            // title
+            &[data-e2e="live-side-nav-channel-title"] {
+                color: @white;
+            }
+            > div[data-e2e="live-side-nav-item"] {
+                border-radius: 5px;
+                &:hover {
+                    .bgHover();
+                }
+                // username
+                span[data-e2e="live-side-nav-name"] {
+                    color: @lighterer;
+                }
+                // name
+                div[class*="-DivSideNavNickName"] {
+                    color: @light;
+                }
+                // viewer count
+                div[data-e2e="person-count"] {
+                    color: @tiktokRed;
+                }
+            }
+        }
+        // "Discover"
+        &[class*="-DivDiscoverContainer"] div[data-e2e="nav-discover-list"] > a > div {
+            background: transparent;
+            border-color: @light;
+
+            &:hover {
+                border-color: @lighterer;
+                svg, p {
+                    color: @lighterer;
+                }
+            }
+            svg, p {
+                color: @lighter;
+            }
+        }
+        // Footer
+        &[class*="-DivFooterContainer"] {
+            a,
+            span {
+                color: @light;
+            }
+        }
+
+        // dividers
+        &::before {
+            .bgDivider();
+        }
+        // titles
+        > p {
+            color: @white;
+        }
+        // "Log in" button (when logged out)
+        [data-e2e="nav-login-button"] {
+            .buttonRed();
+        }
+    }
+}
+
+
+// video feeds - Main page
+div.tiktok-19fglm-DivBodyContainer {
+
+    > div[class*="-DivMainContainer "] {
+        // margin: 0 auto;
+
+        div.tiktok-1p48f7x-DivItemContainer {
+            // border: 1px solid red;
+            // divider
+            &::after {
+                .bgDivider();
+            }
+            > div[class*="-DivContentContainer "] > div {
+                // text section
+                &[class*="-DivTextInfoContainer "] {
+                    > div[class*="-DivAuthorContainer "] > a:last-child {
+                        // date/time (available when in /following)
+                        color: @light;
+                        // username
+                        h3[data-e2e="video-author-uniqueid"] {
+                            color: @lightest;
+                        }
+                        // name
+                        h4[data-e2e="video-author-nickname"] {
+                            color: @lighter;
+                        }
+                    }
+        
+                    // "Follow" or "Following" button
+                    > button {
+                        background: transparent;
+                        // "Follow"
+                        .buttonRed();
+                        // "Following"
+                        &.tiktok-wy7mh8-Button-StyledFollowButton,
+                        &.tiktok-ggrowv-Button-StyledFollowButton {
+                            .buttonBlue();
+                        }
+                    }
+        
+                    // video description
+                    > div[data-e2e="video-desc"] {
+                        // regular text
+                        > span {
+                            color: @lightest;
+                        }
+                        
+                        // hashtags, usernames, stitch|duet|answer
+                        > a {
+                            // hashtags
+                            &[href^="/tag/"] {
+                                color: @middle;
+                            }
+                            // usernames
+                            &[href^="/@"],
+                            &[href="/"] {
+                                color: @orange;
+                            }
+                            // stitch|duet|answer box
+                            &[href*="/video/"],
+                            &[href^="/question/"] {
+                                background: @darker;
+                                border-radius: 2px;
+                                // icon
+                                use {
+                                    fill: @orange;
+                                }
+                                // username
+                                strong {
+                                    color: @orange;
+                                }
+                            }
+                        }
+                    }
+                    // music
+                    > h4[data-e2e="video-music"] a {
+                        color: @middle;
+                        svg use {
+                            fill: @middle;
+                        }
+                    }
+                }
+                // video section
+                &.tiktok-kd7foj-DivVideoWrapper > div {
+                    // video player
+                    &[data-e2e="feed-video"] {
+                        background: @black;
+                    }
+        
+                    // Like, Comment, & Share buttons
+                    > button {
+                        &:hover > strong {
+                            color: @lightest;
+                        }
+                        // buttons (color is outside this entire { })
+                        > span {
+                            background: transparent;
+                            margin: 15px 0 -5px 0;
+                        }
+                        // counts
+                        > strong {
+                            color: @light;
+                        }
+                        // share popup
+                        > div {
+                            background: @darker !important;
+                            // tip arrow
+                            > svg path {
+                                fill: @darker;
+                            }
+                            // text
+                            > div > a {
+                                &:hover {
+                                    .bgHover();
+                                }
+                                span {
+                                    color: @lighterer;
+                                }
+                                &:not([data-e2e]) svg path {
+                                    fill: @lighterer;
+                                }
+                            }
+                        }
+                    }
+                }
+            }
+        }
+    }
+}
+
+
+// recommend "live" videos
+div[data-e2e="live-recommended-list"] {
+    // titles
+    > h2[data-e2e="live-recommended-list-title"] {
+        color: @white;
+    }
+    // videos
+    [class*="-DivLiveRecommendedCard"] > div {
+        // live title + user name
+        &[class*="-DivLiveCard "] div[class*="-DivExtraInfo"] > div {
+            &[data-e2e="live-card-title"] {
+                color: @lighterer;
+            }
+            &[data-e2e="live-card-author-name"] {
+                color: @light;
+            }
+        }
+        // 
+        &[class*="-DivLiveCardExtra "] > span {
+            color: @lighter;
+            background-color: @darker;
+        }
+    }
+}
+
+
+// Usercard popup(when hovering over a username)
+div[class*="vja-DivProfileOuterContainer"] > div[class*="nbs-DivProfileContainer"] {
+    background: @darker;
+    // "Follow" & "Following" buttons
+    > div.tiktok-1tu3lcg-DivHeadContainer > button {
+        background: transparent;
+        // Follow AND "Suggested accounts"
+        &.tiktok-230my5-Button,
+        &[class*="mc3-Button"] {
+            .buttonRed();
+        }
+        // Following
+        &[class*="smd8-Button"] {
+            .buttonBlue();
+        }
+    }
+
+    // username & name
+    > a {
+        // username
+        &:not([data-e2e]) {
+            color: @lightest;
+        }
+        // name
+        &[data-e2e] {
+            color: @lighter;
+        }
+    }
+
+    // user stats (followers & likes)
+    > p > span {
+        color: @lighter;
+    }
+
+    // "divider" & user bio
+    > p[data-e2e] {
+        border-top-color: @light;
+        color: @lighter;
+    }
+}
+
+
+// video feeds - popped up
+div[class*="-DivBrowserModeContainer"] {
+    background-color: @black;
+
+    > div {
+        // video side
+        &[class*="-DivVideoContainer"] {
+            > [class*="-DivBlurBackground"] {
+                background: @black !important;
+            }
+        }
+
+        // video description/comment section
+        &[class*="-DivContentContainer"] {
+            // background: linear-gradient(@black, @black, @dark2);
+            > div {
+                // avatar, user, follow/un-following button
+                &[class*="-DivInfoContainer"] {
+                    > a > span {
+                        // username
+                        &[data-e2e="browse-username"] {
+                            color: @lightest;
+                        }
+                        // name
+                        &[data-e2e="browser-nickname"] {
+                            color: @lighter;
+                            > span {
+                                color: @light;
+                            }
+                        }
+                    }
+    
+                    // "Follow" or "Following" button
+                    > button {
+                        .buttonRed();
+                        // "Following" button
+                        &[class*="-co112j-Button-StyledFollowButton"] {
+                            .buttonBlue();
+                        }
+                    }
+                }
+    
+                // video description
+                &[class*="-DivMainContent"] {
+                    // description
+                    > div[data-e2e="browse-video-desc"] {
+                        // regular text
+                        > span {
+                            color: @lightest;
+                        }
+                        // hashtags, usernames, stitch|duet|answer
+                        > a {
+                            &[href^="/tag/"] {
+                                color: @middle;
+                            }
+                            // usernames
+                            &[href^="/@"],
+                            &[href="/"] {
+                                color: @orange;
+                            }
+                            // stitch|duet|answer box
+                            &[href*="/video/"],
+                            &[href^="/question/"] {
+                                background: @darker;
+                                border-radius: 2px;
+                                // icon
+                                use {
+                                    fill: @orange;
+                                }
+                                // username
+                                strong {
+                                    color: @orange;
+                                }
+                            }
+                        }
+                    }
+                    // music
+                    > h4[data-e2e="browse-music"] > a {
+                        color: @middle;
+                        svg use {
+                            fill: @middle;
+                        }
+                    }
+                    // Like, Comment, Share buttons, & Copy link box
+                    > div[class*="-DivContainer"] > div {
+                        // Like, Comment, & Share buttons
+                        &[class*="-DivFlexCenterRow-StyledWrapper"] > div {
+                            // Like & Comment button/text
+                            &[class*="-DivFlexCenterRow"] > button {
+                                // Like button
+                                &[class*="-ButtonActionItem"]:not([disabled]) {
+                                    > strong {
+                                        color: @lighter;
+                                    }
+                                    > span svg[fill^="rgba(22,"] path {
+                                        fill: @lightest;
+                                    }
+                                }
+                                // Comment button (disabled)
+                                &[disabled] {
+                                    opacity: 0.4;
+                                    > strong {
+                                        color: @lightest;
+                                    }
+                                    > span svg path {
+                                        fill: @lightest;
+                                    }
+                                }
+                            }
+                            // Share buttons
+                            &[data-e2e="browse-share-group"] {
+                                > button {
+                                    // share icon
+                                    > svg path {
+                                        fill: @lightest;
+                                    }
+                                    // share popup
+                                    > div {
+                                        background-color: @darker !important;
+                                        // tip arrow
+                                        > svg path {
+                                            fill: @darker;
+                                        }
+                                        // items
+                                        > div > a {
+                                            &:hover {
+                                                .bgHover();
+                                            }
+                                            > span {
+                                                color: @lighter;
+                                            }
+                                        }
+                                    }
+                                }
+                            }
+                        }
+                        // copy link box
+                        &[class*="-DivCopyLinkContainer"] {
+                            border-color: @darker;
+                            color: @light;
+                            > p {
+                                background-color: @darkest;
+                            }
+                            // copy link button
+                            > button {
+                                color: @lighterer;
+                            }
+                        }
+                    }
+                }
+    
+                // Comments section
+                &[class*="-DivCommentListContainer"] {
+                    background-color: @darker2;
+                    // comment items
+                    > [class*="-DivCommentItemContainer"] {
+                        // comments
+                        [class*="-DivCommentContentContainer"] {
+                            // comment section
+                            > [class*="-DivContentContainer"] {
+                                // user
+                                > a {
+                                    color: @lighter;
+                                }
+                                // comment
+                                > [class*="-PCommentText"] {
+                                    color: @white;
+                                }
+                                // date & Reply
+                                > [class*="-PCommentSubContent"] > span {
+                                    color: @light;
+                                }
+                            }
+                            // 3 dots & like icon
+                            > [class*="-DivActionContainer"] > div {
+                                // 3 dots
+                                &[class*="-DivMoreContainer"] {
+                                    // 3 dots icon
+                                    > [data-e2e] svg path {
+                                        fill: @light;
+                                    }
+                                    // popup
+                                    > [class*="-DivContainer"] {
+                                        background-color: @darker !important;
+                                        // tip arrow
+                                        > svg path {
+                                            fill: @darker;
+                                        }
+                                        > div > p {
+                                            &:hover {
+                                                // Report icon
+                                                svg path {
+                                                    fill: @tiktokRed;
+                                                }
+                                                // "Report"
+                                                span {
+                                                    color: @tiktokRed;
+                                                }
+                                            }
+                                            // Report icon
+                                            svg path {
+                                                fill: @lighter;
+                                            }
+                                            // "Report"
+                                            span {
+                                                color: @lighter;
+                                            }
+                                        }
+                                    }
+                                }
+                                // like & like count
+                                &[class*="-DivLikeWrapper"] {
+                                    // like icon (when not liked)
+                                    > div svg[fill="currentColor"] path {
+                                        fill: @lighter;
+                                    }
+                                    // like count
+                                    > span {
+                                        color: @lighter;
+                                    }
+                                }
+                            }
+                        }
+                        // "View more replies (n)"
+                        [class*="-DivReplyActionContainer"] {
+                            &::before {
+                                .bgDivider();
+                                transform: none;
+                            }
+                            > p {
+                                color: @light;
+                            }
+                        }
+                    }
+                }
+    
+                // comment box
+                &[class*="-DivBottomCommentContainer"] {
+                    background-color: @dark2;
+                    margin: 0;
+                    padding: 21px 30px;
+
+                    > div > div {
+                        // input box
+                        &[class*="-DivLayoutContainer"] [data-e2e="comment-input"] {
+                            background-color: @dark;
+                            border-color: transparent;
+                            // text when focused in box
+                            &[class*="1pmlpmb"] {
+                                > [data-e2e="comment-text"] .DraftEditor-editorContainer {
+                                    color: @lightest;
+                                }
+                                // "@" & emoji icon
+                                > [data-e2e$="-icon"] svg path {
+                                    fill: @lighter;
+                                }
+                            }
+                            // text
+                            > [data-e2e="comment-text"] {
+                                // placeholder text
+                                .public-DraftEditorPlaceholder-root {
+                                    color: @light;
+                                }
+                                .DraftEditor-editorContainer {
+                                    color: @lighter;
+                                }
+                            }
+                            // "@" & emoji icon
+                            > [data-e2e$="-icon"] svg path {
+                                fill: @light;
+                            }
+    
+                            // user popup (when "@")
+                            > [data-e2e="comment-at-user"] {
+                                background-color: @darker;
+                                > div {
+                                    background-color: transparent;
+                                    // user items
+                                    > [data-e2e="comment-at-list"] {
+                                        // hovered items
+                                        &[class*="-h2b795-"] {
+                                            .bgHover();
+                                        }
+                                        background-color: transparent;
+                                        // name
+                                        [data-e2e="comment-at-nickname"] {
+                                            color: @lightest;
+                                        }
+                                        // dot
+                                        [class*="-SpanInfoDot"] {
+                                            color: @lighter;
+                                        }
+                                        // following info
+                                        [class*="-SpanInfoFollowing"] {
+                                            color: @light;
+                                        }
+                                        // username
+                                        [data-e2e="comment-at-uniqueid"] {
+                                            color: @lighter;
+                                        }
+                                    }
+                                }
+                            }
+    
+                            // emoji popup
+                            > [data-e2e="comment-emoji-list"] {
+                                background-color: @darker;
+                                > div {
+                                    background-color: transparent;
+                                    > ul {
+                                        border-top-color: @dark;
+                                    }
+                                    // emoji items
+                                    > div > ul[class*="-UlPanelList"] > li {
+                                        background-color: transparent;
+                                        &:hover {
+                                            .bgHover();
+                                        }
+                                    }
+                                }
+                            }
+                        }
+                        // "Post" button
+                        &[data-e2e="comment-post"] {
+                            font-weight: 600;
+                            &[class*="ywie5h"] {
+                                color: @light;
+                            }
+                        }
+                    }
+                }
+            }
+        } 
+    }
+}
+
+
+// User|tag|music page
+div[class*="-DivShareLayoutV2"] > div[class*="-DivShareLayoutContentV2 "] > div {
+    // profile description
+    &[class*="-DivShareLayoutHeader-StyledDivShareLayoutHeaderV2 "] {
+        > div[class*="-DivShareInfo"] > div {
+            // image
+            &[class*="-DivDefaultImgContainer "] svg path {
+                fill: @white;
+            }
+
+            // (user|tag|music) page info
+            &[class*="-DivShareTitleContainer "] {
+                // (username)|(tag name)|(song name)
+                > [class*="ShareTitle "] {
+                    color: @white;
+                }
+                // (name)|(artist name)
+                > [class*="ShareSubTitle "],
+                > [class*="ShareSubTitle "] a {
+                    color: @lighterer;
+                }
+                // (tag views)|(# of videos playing song)
+                > [class*="ShareSubTitleThin "] {
+                    color: @light;
+                }
+                // buttons
+                > div {
+                    // "Edit profile", "Message" and unfollow button
+                    &.tiktok-ad9zby-DivEditContainer > button,
+                    div[class*="-DivMessageContainer"] > a > button,
+                    div[class*="-DivMessageContainer"] > div {
+                        border: none;
+                        background: @darker;
+                        color: @lighter;
+                        &:hover {
+                            background: rgb(@darker, .8);
+                        }
+                        svg path {
+                            fill: @lighter;
+                        }
+                    }
+                    // "Follow"
+                    .tiktok-1h3j14u-DivFollowButtonWrapper > button {
+                        background: transparent;
+                        .buttonRed();
+                    }
+                }
+            }
+        }
+
+        // tag info
+        > div[class*="-DivDesc "] span {
+            color: @light;
+        }
+
+        // count (# of followers & likes)
+        > h2[class*="-H2CountInfos "] > div {
+            // count
+            strong {
+                color: @lighterer;
+            }
+            // description of count
+            span {
+                color: @light;
+            }
+        }
+
+        // bio
+        > h2[data-e2e="user-bio"] {
+            color: @lighter;
+        }
+
+        // profile links
+        > div[class*="-DivShareLinks "] > a {
+            svg {
+                fill: @tiktokRed;
+            }
+            color: @tiktokRed;
+        }
+
+        // share button
+        > div[class*="-DivShareActions "] {
+            // icon
+            > svg path {
+                stroke: @white;
+            }
+            // popup
+            > div {
+                background: @darker !important;
+                // tip arrow
+                > svg path {
+                    fill: @darker;
+                }
+                // items
+                > div {
+                    > * {
+                        color: @lighterer;
+                        &:hover {
+                            .bgHover();
+                        }
+                    }
+                    // disabled items
+                    > div[class*="-DivDisabledArea "] {
+                        opacity: .5;
+                    }
+                }
+            }
+        }
+
+        // more button (3 dots)
+        > div[class*="-DivMoreActions "] {
+            // 3 dots icon
+            > svg path {
+                fill: @white;
+            }
+            // popup
+            > div {
+                background: @darker !important;
+                // tip arrow
+                > svg path {
+                    fill: @darker;
+                }
+                // items
+                > div > div {
+                    &:hover {
+                        .bgHover();
+                    }
+                    // text
+                    div[class*="-DivActionItem"] > p {
+                        color: @lighterer;
+                    }
+                    // icons
+                    svg {
+                        // icons with fill
+                        &[fill="currentColor"] path {
+                            fill: @lighterer;
+                        }
+                        // icons without fill ("Block" icon in @<username>)
+                        &[fill="none"] path {
+                            stroke: @lighterer;
+                        }
+                    }
+                }
+            }
+        }
+    }
+
+    // profile videos
+    &:not([class*="-DivShareLayoutHeader-StyledDivShareLayoutHeaderV2 "]) {
+        // tab indicator ("Videos", "Liked")
+        > [class*="-DivVideoFeedTab-StyledDivVideoFeedTabV2 "] {
+            > p {
+                // selected tab
+                &[class*="tr4p7q-PPost"],
+                &[class*="2t0o4-PLike"] {
+                    color: @white;
+                }
+                // unselected tab
+                &[class*="maqxi4-PPost"],
+                &[class*="1qocf9t-PLike"] {
+                    color: @light;
+                }
+            }
+            // slider
+            > div {
+                background: @white;
+            }
+            // slider background
+            &::after {
+                background: @lighter;
+            }
+        }
+        // video layout
+        > :not([class*="-DivVideoFeedTab-StyledDivVideoFeedTabV2 "]) {
+            a[title] [class*="-DivContainer"] {
+                text-overflow: unset;
+                span, strong, p {
+                    color: @lighterer;
+                }
+                svg use {
+                    fill: @lighterer;
+                }
+            }
+            // failed/empty videos
+            &[class*="-DivErrorContainer "],
+            [class*="-DivErrorContainer "] {
+                color: @lighter;
+                svg path {
+                    fill: @lighter;
+                }
+                p {
+                    color: @lighter;
+                }
+            }
+        }
+    }
+}
+
+
+/* Video Icons Color (Like, Comment, & Share icons) */
+#svg-heart-fill path,
+#svg-ellipsis-right-fill,
+#svg-pc-share path {
+    fill: @lightest;
+}
+
+
+
+// "Get app" button
+button[class*="-ButtonGetAppText"] {
+    background: @darker;
+    color: @lighter;
+    border-color: @darker;
+    &:hover {
+        background: @darker;
+        color: @lightest;
+        border-color: @darker;
+    }
+    + [class*="-DivExpandContainer"] {
+        background-color: @darker;
+        // X icon
+        > [class*="-DivXMarkWrapper"] svg path {
+            fill: @white;
+        }
+
+        // items
+        > [class*="-DivExpandWrapper"] > div {
+            // icon + text
+            &[data-e2e] {
+                &:hover {
+                    // icons
+                    svg path {
+                        fill: @lightest;
+                    }
+                    // text
+                    span {
+                        color: @lightest;
+                    }
+                }
+                // icons
+                svg path {
+                    fill: @lighter;
+                }
+                // text
+                span {
+                    color: @lighter;
+                }
+            }
+            // divider
+            &:not([data-e2e]) {
+                .bgDivider();
+            }
+        }
+    }
+}
+    
+// modal popups
+div[class*="-DivModalContainer"] > div {
+    // backdrop
+    &[class*="-DivModalMask"] {
+        .backdrop();
+    }
+    // content
+    &[class*="-DivContentContainer"] {
+        background: @darker;
+        > div {
+            // when leaving page while having text in comment section
+            &[class*="-DivLeaveModalContainer"] {
+                background: transparent;
+                > div {
+                    &[class*="-DivTitle"] {
+                        color: @white;
+                    }
+                    &[class*="-DivSubTitle"] {
+                        color: @lighter;
+                    }
+                    // "Keep editing"
+                    [class*="-DivCancelButton"] {
+                        &:hover {
+                            color: @white;
+                        }
+                        color: @lighterer;
+                    }
+                }
+            }
+
+            // when click "Get TikTok app"
+            &[class*="-DivModalHeader"] {
+                border-bottom-color: @dividerColor;
+                // title
+                > p {
+                    color: @white;
+                }
+
+                + [class*="-DivLargeContentContainer"] > div {
+                    > p {
+                        color: @lighterer;
+                    }
+                    > div > a {
+                        outline: 2px solid @darker;
+                        outline-offset: -2px;
+                    }
+                }
+            }
+
+            // when sending video to friend "Send to friends"
+            &[class*="-DivSendMessagePanelContainer"] {
+                // title
+                > h2 {
+                    color: @white;
+                }
+                // search users
+                > [class*="-DivSearchContainer"] {
+                    background-color: @dark2;
+                    // search icon
+                    > svg path {
+                        fill: @light;
+                    }
+                    > input {
+                        &::placeholder {
+                            color: @light;
+                        }
+                        &[value] {
+                            color: @lighter;
+                            // "x" icon
+                            + div svg path {
+                                fill: @light;
+                            }
+                        }
+                    }
+                }
+                // users
+                [class*="DivUserListInnerContainer"] {
+                    // titles
+                    > p {
+                        color: @white;
+                    }
+                    // user items
+                    > div {
+                        &:hover {
+                            .bgHover();
+                        }
+                        // user name
+                        [class*="SpanNickname "] > span {
+                            color: @lightest;
+                            > span {
+                                color: @blue !important;
+                            }
+                        }
+                        // username
+                        [class*="PUniqueId "] {
+                            color: @light;
+                        }
+                        // checkbox
+                        [type="checkbox"] {
+                            border-color: @light;
+                        }
+                    }
+                }
+
+                // "Send" button
+                > [class*="DivSendContainer "] {
+                    &::before {
+                        background-color: @dividerColor;
+                    }
+                    background-color: @darker;
+                    > div {
+                        textarea {
+                            background-color: transparent;
+                            color: @lightest;
+                            &::placeholder {
+                                color: @lighter;
+                            }
+                        }
+                    }
+                    > button[disabled] {
+                        background-color: @tiktokRed;
+                        color: @white;
+                        opacity: .3;
+                    }
+                }
+            }
+
+            // when click "Edit profile"
+            &[class*="-DivModalContainer"] > div {
+                // title
+                &[class*="-DivHeaderContainer"] {
+                    border-bottom-color: @dividerColor;
+                    color: @white;
+                }
+                &[class*="-DivContentContainer"] > div {
+                    border-bottom-color: @dividerColor;
+                    [class*="-DivLabel"] {
+                        color: @lightest;
+                    }
+                    ::placeholder {
+                        color: @light;
+                    }
+                    input, textarea {
+                        color: @lighterer;
+                        background-color: @dark2;
+                    }
+                    // text below input|textarea
+                    [class*="-DivTextCount"] span,
+                    [class*="-DivTextCount"],
+                    [class*="PProfileSite"] {
+                        color: @light;
+                    }
+                }
+                &[class*="DivFooterContainer "] {
+                    button[disabled] {
+                        .buttonRedFullDisabled();
+                    }
+                }
+            }
+
+            // when reporting live comment
+            &[data-e2e="report-modal"] {
+                background-color: transparent;
+                [class*="H2TitleContainer "] {
+                    color: @white;
+                }
+                // report items
+                [class*="DivReportItem "] {
+                    border-color: @dividerColor;
+                    &:hover {
+                        background-color: transparent;
+                        // radio button
+                        [class*="DivRadioIconContainer "] {
+                            border-color: @lightest;
+                        }
+                        // text
+                        span {
+                            color: @white;
+                        }
+                    }
+                    // radio button checked
+                    input:checked {
+                        // radio button
+                        ~ [class*="DivRadioIconContainer "] {
+                            border-color: @tiktokRed;
+                        }
+                        // text
+                        ~ span {
+                            color: @white;
+                        }
+                    }
+                    // radio button
+                    [class*="DivRadioIconContainer "] {
+                        border-color: @lighter;
+                    }
+                    // text
+                    span {
+                        color: @lighterer;
+                    }
+                    input:checked ~ span {
+                        color: @white;
+                    }
+                }
+                // report tips
+                [class*="DivReportTips "] {
+                    color: @light;
+                }
+                // "Cancel" & "Next"|"Submit" buttons
+                [class*="DivModalControllerContainer "] {
+                    border-color: @dividerColor;
+                    button {
+                        &:hover:not([disabled]) {
+                            color: @white;
+                        }
+                        &[disabled] {
+                            opacity: 0.25;
+                        }
+                        background-color: transparent;
+                        color: @lighterer;
+                        border: none;
+                        &[data-e2e="report-cancel-button"] {
+                            border-right: 1px solid @dividerColor;
+                        }
+                    }
+                }
+            }
+
+            // "Embed video"
+            &[class*="DivModalContainer "] {
+                // title
+                > h3 {
+                    color: @white;
+                }
+                // embed link
+                > textarea {
+                    background-color: @darker2;
+                    color: @lighterer;
+                }
+                // agreement
+                > p {
+                    color: @light;
+                    a {
+                        color: @lighter;
+                    }
+                }
+                // buttons
+                > button {
+                    color: @lighterer;
+                    &:hover {
+                        color: @white;
+                    }
+                    &::after {
+                        .bgDivider();
+                    }
+                }
+            }
+
+            // "Embed profile"
+            &[class*="DivModalContainer "] > div {
+                // title
+                &[class*="DivEmbedTitle "] h3 {
+                    color: @white;
+                }
+                // content
+                &[class*="DivModalInnerContainer "] > div {
+                    // left - profile preview (skeleton)
+                    &[class*="DivSkeletonContainer "] > svg > g {
+                        rect {
+                            fill: @light;
+                            fill-opacity: 1;
+                            &:first-child {
+                                // stroke: @lightest;
+                                fill: @black;
+                            }
+                        }
+                        circle, path {
+                            fill: @dark
+                        }
+                    }
+
+                    // right - text area
+                    &[class*="DivTextArea "] {
+                        // description
+                        > div {
+                            color: @lightest;
+                        }
+                        // embed link
+                        > textarea {
+                            color: @lighterer;
+                            background-color: @darker2;
+                        }
+                        // "Copy code" button
+                        > button {
+                            color: @lightest;
+                            border-color: @lighterer;
+                            &:hover {
+                                color: @white;
+                                border-color: @white;
+                            }
+                        }
+                        // agreement
+                        > p {
+                            color: @light;
+                            a {
+                                color: @lighter;
+                            }
+                        }
+                    }
+                }
+            }
+
+            // "Log in to TikTok"
+            &[class*="DivModalContent "] {
+                // title + "Continue with ..." items
+                [class*="DivLoginContainer "] {
+                    // title
+                    [class*="DivTitle "] {
+                        color: @white;
+                    }
+                    // "Continue with ..." items
+                    [class*="DivBoxContainer "] {
+                        border-color: @middle;
+                        color: @lightest;
+                        &:hover {
+                            .bgHover();
+                        }
+                    }
+                    // steps
+                    [class*="PStep "] {
+                        color: @lightest;
+                    }
+                    // "See how" hover popup (QR code)
+                    [class*="DivTipImageMask "] {
+                        background-color: @darker;
+                    }
+                    // form ("Log in")
+                    form {
+                        // "Email or username" / "Phone"
+                        [class*="DivDescription "] {
+                            color: @lightest;
+                        }
+                        // links
+                        [class*="ALink-StyledLink"] {
+                            color: @lighter;
+                            &:hover {
+                                text-decoration: underline;
+                            }
+                        }
+                        // dropdown select boxes ("When’s your birthday?")
+                        [class*="DivAgeSelector "] > [class*="DivSelector "] {
+                            background-color: @darker2;
+                            // quick preview of selected item
+                            [class*="DivSelectLabel "] {
+                                color: @lightest;
+                                svg path {
+                                    fill: @white;
+                                }
+                            }
+                            // items box
+                            [class*="DivOptionsWarpper "] {
+                                background-color: @darker2;
+                                // items
+                                > div {
+                                    &:hover {
+                                        .bgHover();
+                                    }
+                                    color: @lighterer;
+                                }
+                            }
+                        }
+                        // "Send code" button
+                        [class*="ButtonSendCode "] {
+                            color: @lightest;
+                            background-color: @darker;
+                            &[disabled] {
+                                color: rgb(@lightest, 0.25);
+                            }
+                        }
+                        // phone box
+                        [class*="DivPhoneInputContainer "] {
+                            ::after {
+                                background-color: @dividerColor;
+                            }
+                            // when error
+                            &[class*="pgkamo"] {
+                                border-color: @tiktokRed;
+                                input {
+                                    color: @tiktokRed;
+                                }
+                                + [type="error"] {
+                                    display: flex;
+                                }
+                            }
+                            + [type="error"] {
+                                display: none;
+                            }
+                            // country + country code
+                            [class*="SpanLabelContainer "] {
+                                color: @lightest;
+                            }
+                            // country popup
+                            [class*="DivSelectorContainer "] {
+                                background-color: @darker2;
+                                border-color: @dark;
+                                // search box
+                                [class*="DivSearchContainer "] {
+                                    background-color: transparent;
+                                    border-bottom-color: @dark;
+                                    // search icon
+                                    svg path {
+                                        fill: @lightest;
+                                    }
+                                }
+                                // country items
+                                li {
+                                    &:hover {
+                                        .bgHover();
+                                    }
+                                    span {
+                                        color: @lightest;
+                                        span[style] {
+                                            color: @blue !important;
+                                        }
+                                    }
+                                    svg path {
+                                        fill: @white;
+                                    }
+                                }
+                            }
+                        }
+                        // input boxes style
+                        [class*="DivPhoneInputContainer "],
+                        [class*="DivCodeInputContainer "],
+                        [class*="DivInputContainer "] {
+                            background-color: @darker2;
+                            border: 1px solid @dark;
+                            border-radius: 4px;
+
+                            &:focus-within {
+                                border-color: @middle;
+                                input {
+                                    &::placeholder {
+                                        color: @light;
+                                    }
+                                }
+                            }
+                            // text
+                            input {
+                                background-color: rgb(@darkest, 0.10);
+                                color: @lightest;
+                                &::placeholder {
+                                    color: @middle;
+                                }
+                                // if contains error
+                                &[class*="6nf298"] {
+                                    color: @tiktokRed;
+                                }
+                                // password icon
+                                + div > [class*="IPasswordIcon"] svg path {
+                                    stroke: @white;
+                                }
+                            }
+                        }
+                        // password requirements
+                        [class*="PDescriptionTitleContainer "] {
+                            color: @white;
+                            // password requirements
+                            ~ [class*="DivTextContainer "] {
+                                &[type="default"] {
+                                    color: @lighter;
+                                    svg path {
+                                        fill: @lighter;
+                                    }
+                                }
+                                &[type="success"] {
+                                    color: @blue;
+                                    svg path {
+                                        fill: @blue;
+                                    }
+                                }
+                                &[type="error"] {
+                                    color: @tiktokRed;
+                                    svg path {
+                                        fill: @tiktokRed;
+                                    }
+                                }
+                            }
+                        }
+                    }
+                    // down arrow (more)
+                    [class*="DivShowMore "] > svg path {
+                        fill: @white;
+                    }
+                }
+                // "Don’t have an account? Sign up"
+                [class*="DivContainer "] {
+                    border-top-color: @dividerColor;
+                    color: @light;
+                }
+                // "Sign up for TikTok"
+                [class*="DivAgreement"] {
+                    background-color: transparent;
+                    > p {
+                        color: @lighter;
+                        a {
+                            color: @lightest;
+                        }
+                    }
+                }
+            }
+        }
+        > form {
+            background-color: transparent;
+            > div {
+                // title
+                &[class*="DivFormHeader "] h4[data-e2e="report-card-title"] {
+                    color: @white;
+                }
+                // report group items
+                &[class*="DivRadioWrapper "] {
+                    border-color: @dividerColor;
+                    // subtitle
+                    > [class*="DivSelectText "] {
+                        color: @lightest;
+                    }
+                    // report items
+                    > label {
+                        &:hover {
+                            .bgHover();
+                        }
+                        div {
+                            color: @lighter;
+                        }
+                        svg path {
+                            fill: @lighter;
+                        }
+                    }
+                }
+            }
+        }
+    }
+}
+
+
+// back buttons
+[class*="DivBack "],
+[class*="-DivBackButton "],
+[class*="-DivArrowLeftContainer "],
+.back-button,
+.close-button-wrapper {
+    &:hover {
+        color: @white;
+        svg path {
+            fill: @white;
+        }
+    }
+    color: @lighter;
+    svg path {
+        fill: @lighter;
+    }
+}
+
+// "X" close buttons
+[class*="-DivClose "],
+[class*="-DivCloseWrapper "],
+[class*="-DivCloseContainer "],
+[class*="-DivCloseButtonWrapper "],
+[class*="-DivCloseButton "],
+[class*="-DivCloseIconContainer "],
+[class*="-DivXMarkWrapper"],
+[class*="DivIconContain "],
+span.jsx-4107332755 {
+    &:hover svg path {
+        fill: @white;
+    }
+    svg path {
+        fill: @lighter;
+    }
+}
+
+// "Keyboard Shortcuts" popup (bottom right)
+[class*="-DivKeyboardShortcutContainer"] {
+    background: @darker;
+    > div {
+        // title
+        &[class*="-DivKeyboardShortcutTitle"] {
+            color: @white;
+        }
+        // text + icons
+        &[class*="-DivKeyboardShortcutContent"] {
+            border-top-color: @dividerColor;
+            // items
+            > div {
+                border-bottom-color: @dividerColor;
+                color: @lighter;
+                svg path {
+                    fill: @lightest;
+                }
+            }
+        }
+    }
+}
+
+
+// SKELETON
+[class*="-DivBaseComponent-"]:empty,
+[class*="-DivDiscoverSkeletonItem"] {
+    background-color: @light;
+}
+
+}
+
+@-moz-document url-prefix("https://www.tiktok.com/messages") {
+
+/*****************/
+/*   /messages   */
+/*****************/
+
+
+// Conversations List & Message History
+main.messages-layout-main > div {
+    
+    // back button
+    &.back-container {
+        background: @darkest;
+        &:hover svg path {
+            fill: @white;
+        }
+        svg path {
+            fill: @lighterer;
+        }
+    }
+
+
+    // Left (Conversations List)
+    &.left-part {
+        > div.conversation-list-wrapper {
+            background: @darkest;
+
+            // header
+            > div.conversation-list-header {
+                h3 {
+                    color: @white;
+                }
+                img {
+                    .invert();
+                }
+            }
+
+            // content items
+            div.side-scroll-wrapper {
+                > div {
+                    background: transparent;
+                }
+                div.conversation-list-item-wrapper {
+                    background: @darkest;
+    
+                    // selected message
+                    &.selected {
+                        .bgClick();
+                    }
+                    // hover message
+                    &:hover:not(.selected) {
+                        .bgHover();
+                    }
+                    // Name, text, & time
+                    > div.conversation-list-item-info > div.info-text-wrapper > p {
+                        color: @lightest;
+                        span {
+                            // text
+                            &.info-extract {
+                                color: @lighter;
+                            }
+                            &.info-time {
+                                color: @light;
+                            }
+                        }
+                    }
+                    // new message
+                    > span.has-new-message {
+                        background: @tiktokRed;
+                    }
+                    // More (3 dots "...")
+                    > img.more-action-icon {
+                        .invert();
+                    }
+                    > div.more-action {
+                        background: @darker;
+                        &::after {
+                            border-bottom-color: @darker;
+                        }
+                        // action items
+                        > div.action-item {
+                            &:hover {
+                                .bgHover();
+                            }
+                            img {
+                                .invert();
+                            }
+                            p {
+                                color: @lighterer;
+                            }
+                        }
+                    }
+                }
+            }
+        }
+        // "Message Settings" popup
+        ~ div.modal.show div.message-setting-container {
+            background: @darker;
+            // header
+            div.title {
+                color: @white;
+                // X icon
+                + span {
+                    svg path {
+                        fill: @lighterer;
+                    }
+                    &:hover svg path {
+                        fill: @white;
+                    }
+                } 
+            }
+            p.message-setting-what {
+                color: @white;
+            }
+            // description
+            p.message-setting-detail {
+                color: @lighter;
+            }
+            // choices
+            label {
+                &:hover > span {
+                    color: @lightest;
+                }
+                // choice [unselected]
+                &[aria-checked="false"] > div.tiktok-radio__radio {
+                    border-color: @dark;
+                }
+                // text
+                > span {
+                    color: @lighterer;
+                }
+            }
+            // dividers
+            > div::after {
+                .bgDivider();
+            }
+            // buttons
+            div.message-setting-button-container button {
+                // Cancel button
+                &:not(.tiktok-btn-pc-primary) {
+                    &:hover {
+                        background: @lightest;
+                    }
+                }
+                // Save button
+                &.tiktok-btn-pc-primary {
+                    // when disabled
+                    &.tiktok-btn-pc-disabled {
+                        background: transparent;
+                        border: 2px solid @middle;
+                        color: @middle;
+                        opacity: 0.6;
+                    }
+                }
+            }
+        }
+    }
+
+
+    // Right (Message History)
+    &.right-part div.conversation-container {
+        background: @darkest;
+
+        > div {
+            // header
+            &.conversation-header {
+                background: @darker;
+                border-top-left-radius: 8px;
+                border-top-right-radius: 8px;
+
+                div.name-container p {
+                    // name
+                    &.nickname {
+                        color: @lightest;
+                    }
+                    // username
+                    &.unique-id {
+                        color: @light;
+                    }
+                }
+            }
+            // main
+            &.conversation-main {
+                background: @darkest;
+                // date/time
+                > div.time-container {
+                    color: @light;
+                }
+                > div.conversation-item-wrapper {
+                    // my speech bubble
+                    &.myself .text-container {
+                        background: @tiktokBlue !important;
+                    }
+                    // their speech bubble
+                    &:not(.myself) .text-container {
+                        background: @darker;
+                        p {
+                            color: @lightest;
+                        }
+                    }
+                    // More (3 dots "...")
+                    div.icon-more svg path {
+                        fill: @lighter;
+                    }
+                    // unavailable video
+                    div.video-container.error {
+                        border: 1px solid @middle;
+                        > div {
+                            &.error-main {
+                                p {
+                                    color: @light;
+                                }
+                                svg path {
+                                    fill: @light;
+                                }
+                            }
+                            &.author-inner-container p.nickname {
+                                color: @light;
+                            }
+                        }
+                    }
+                }
+            }
+            // bottom
+            &.conversation-bottom {
+                background: @darker;
+                border-bottom-left-radius: 8px;
+                border-bottom-right-radius: 8px;
+                // message box
+                div.comment-input-inner-wrapper.pc {
+                    background: @dark;
+                    // placeholder text
+                    div.public-DraftEditorPlaceholder-root,
+                    div.public-DraftEditorPlaceholder-hasFocus {
+                        color: @lighter;
+                    }
+                    // text
+                    span[data-text="true"] {
+                        color: @white;
+                    }
+                    // word count
+                    .word-num-container span {
+                        color: @lighter;
+                    }
+                    // emoji
+                    div.emojiSelect {
+                        // button
+                        > button[class^="emojiSelectButton"] {
+                            .invert()
+                        }
+                        > div.emojiSelectPopover {
+                            background: @darker;
+                            // highlight emoji
+                            button[class="emojiSelectPopoverEntryFocused"] {
+                                background-color: @dark;
+                            }
+                            // middle icon
+                            li[class="emojiSelectPopoverGroupItem"]:nth-child(18) button[class^="emojiSelectPopoverEntry"] {
+                                color: @white;
+                            }
+                        }
+
+                    }
+                }
+            }
+        }
+    }
+
+    // report modal
+    .modal-wrapper {
+        .modal-mask {
+            .backdrop();
+        }
+        .report-reason-container {
+            background-color: @darker;
+            // divider
+            ::after {
+                .bgDivider();
+            }
+            // header
+            .report-reason-header .title {
+                color: @white;
+            }
+            // content
+            .report-reason-content {
+                .report-reason-why-title {
+                    color: @white;
+                }
+                // reason items
+                .report-reason-item {
+                    background-color: transparent;
+                    outline: @light solid 1px;
+                    outline-offset: -1px;
+                    color: @lighter;
+                    &:hover:not([class*="selected"]) {
+                        outline-color: @lightest;
+                        color: @lightest;
+                    }
+                    &[class*="selected"] {
+                        outline-color: @lightest;
+                        color: @lightest;
+                    }
+                }
+            }
+            // buttons
+            .report-reason-footer button {
+                // "Cancel"
+                &:not(.tiktok-btn-pc-primary) {
+                    background-color: @darkest;
+                    color: @white;
+                    &:hover {
+                        background-color: @black;
+                    }
+                }
+                &.tiktok-btn-pc-disabled {
+                    .buttonRedFullDisabled();
+                }
+            }
+        }
+    }
+}
+
+// SKELETON
+[class*="skeleton"]:empty {
+    background-color: @light !important;
+}
+
+}
+
+@-moz-document regexp("https://www.tiktok.com/@[\w\d._]+/video.*") {
+
+/**************************/
+/*   /@<username>/video   */
+/**************************/
+
+
+// video feeds - popped up (from messages view)
+#main .main-body > .video-card-big {
+    background-color: @black;
+
+    > div {
+        // video side
+        &.video-card-container > .background-image {
+            opacity: 0;
+        }
+
+        // video description/comment section
+        &.content-container > div {
+
+            // avatar, user, follow/un-following button
+            &.user-info-container {
+                // username
+                .user-username {
+                    color: @lightest;
+                }
+                // name
+                .user-nickname {
+                    color: @lighter;
+                }
+            }
+
+            // "Follow" or "Following" button
+            .follow-button-wrap > button {
+                .buttonRed();
+                // "Following" button
+                &:not(.tiktok-btn-pc-line) {
+                    .buttonBlue();
+                }
+            }
+
+            // profile popup
+            .profile-card-outside-wrapper > .profile-card-container {
+                background-color: @darker;
+
+                // username
+                h3.author-uniqueId {
+                    color: @lightest;
+                }
+
+                // name
+                h4.author-nickname {
+                    color: @lighter;
+                }
+
+                // user stats (followers & likes)
+                .followers, .likes {
+                    > span {
+                        color: @lighter;
+                    }
+                }
+
+                // "divider" & user bio
+                .signature {
+                    border-top-color: @light;
+                    color: @lighter;
+                }
+            }
+
+            
+            // video description
+            &.video-infos-container {
+
+                // description
+                > .video-meta-title {
+                    // regular text
+                    > strong {
+                        color: @lightest;
+                    }
+                    // hashtags, usernames, stitch|duet|answer
+                    > a {
+                        &[href^="/tag/"] {
+                            color: @middle;
+                        }
+                        // usernames
+                        &[href^="/@"],
+                        &[href="/"] {
+                            color: @orange;
+                        }
+                        // stitch|duet|answer box
+                        &[href*="/video/"],
+                        &[href^="/question/"] {
+                            background: @darker;
+                            border-radius: 2px;
+                            // icon
+                            path {
+                                fill: @orange;
+                            }
+                            // username
+                            strong {
+                                color: @orange;
+                            }
+                        }
+                    }
+                }
+
+                // music
+                > .music-info > a {
+                    color: @middle;
+                    svg path {
+                        fill: @middle;
+                    }
+                }
+
+                // Like & Comment
+                .action-container > div {
+                    // Like & Comment button/text
+                    &.action-left {
+                        // both buttons
+                        .icons {
+                            &:hover {
+                                background-color: transparent;
+                            }
+                        }
+                        // Like button
+                        > :first-child {
+                            span {
+                                background-color: transparent;
+                                &:not(.liked) {
+                                    .invert();
+                                }
+                            }
+                            strong {
+                                color: @lighter;
+                            }
+                        }
+                        // Comment button
+                        > :last-child {
+                            cursor: default;
+                            opacity: 0.4;
+                            span {
+                                background-color: transparent;
+                                .invert();
+                            }
+                            strong {
+                                color: @lightest;
+                            }
+                        }
+                    }
+                    // "Share to" text
+                    .share-word {
+                        color: @lighterer;
+                    }
+                }
+
+                // Copy link box
+                > .copy-link-container {
+                    border-color: @darker;
+                    // link
+                    > .link-container {
+                        color: @light;
+                        background-color: @darkest;
+                    }
+                    // copy link button
+                    .word-link {
+                        color: @lighterer;
+                    }
+                }
+            }
+
+            // Comments section
+            &.comment-container {
+                background-color: @darker2;
+                // comment items
+                .comment-item.comment-pc {
+                    // user
+                    .username {
+                        color: @lighter;
+                    }
+                    // comment
+                    .comment-text {
+                        color: @white;
+                        // data & Reply
+                        .bottom-container > span {
+                            color: @light;
+                        }
+                    }
+                    // 3 dots
+                    .more-actions {
+                        > .more-icon svg path {
+                            fill: @light;
+                        }
+                        // popup
+                        > .popup {
+                            background-color: @darker;
+                            // tip arrow
+                            img {
+                                -webkit-mask: url("https://lf16-tiktok-web.tiktokcdn-us.com/obj/tiktok-web-tx/tiktok/web/node/_next/static/images/tip_arrow_white-050387fde598df3b2e69dd3d3adb632d.svg") center / 30px no-repeat;
+                                mask: url("https://lf16-tiktok-web.tiktokcdn-us.com/obj/tiktok-web-tx/tiktok/web/node/_next/static/images/tip_arrow_white-050387fde598df3b2e69dd3d3adb632d.svg") center / 30px no-repeat;
+                                background-color: @darker;
+                                content-visibility: hidden;
+                            }
+                            .action-item-wrapper {
+                                background-color: transparent;
+                                &:hover {
+                                    // Report icon
+                                    svg path {
+                                        fill: @tiktokRed;
+                                    }
+                                    // "Report"
+                                    p {
+                                        color: @tiktokRed;
+                                    }
+                                }
+                                // Report icon
+                                svg path {
+                                    fill: @lighter;
+                                }
+                                // "Report"
+                                p {
+                                    color: @lighter;
+                                }
+                            }
+                        }
+                    }
+                    // like & like count
+                    .like-container {
+                        // like icon (when not liked)
+                        img[src*="unlike"] {
+                            .invert();
+                        }
+                        // like count
+                        span {
+                            color: @lighter;
+                        }
+                    }
+                    // "View more replies (n)"
+                    .view-more {
+                        &::before {
+                            .bgDivider();
+                        }
+                        > p {
+                            color: @light;
+                        }
+                    }
+                }
+            }
+            
+            // comment box
+            &.comment-post-outside-container {
+                background-color: @dark2;
+                margin: 0;
+                padding: 21px 32px;
+
+                .comment-input-inner-wrapper {
+                    background-color: @dark;
+                    border-color: transparent;
+                    // text when focused in box
+                    &.focus {
+                        .DraftEditor-root .DraftEditor-editorContainer {
+                            color: @lightest;
+                        }
+                        .at-icon,
+                        [class*="emojiSelectButton"] {
+                            background-color: @lighter !important;
+                        }
+                    }
+                    // text
+                    .DraftEditor-root {
+                        // placeholder text
+                        .public-DraftEditorPlaceholder-root {
+                            color: @light;
+                        }
+                        .DraftEditor-editorContainer {
+                            color: @lighter;
+                        }
+                    }
+                    // "@" & emoji icon
+                    .editor {
+                        // "@" icon
+                        .at-icon {
+                            background-image: none;
+                            -webkit-mask: url("https://lf16-tiktok-web.tiktokcdn-us.com/obj/tiktok-web-tx/tiktok/web/node/_next/static/images/at-8880650b336ed2a1698fdf976c2bef40.svg") center / 24px no-repeat;
+                            mask: url("https://lf16-tiktok-web.tiktokcdn-us.com/obj/tiktok-web-tx/tiktok/web/node/_next/static/images/at-8880650b336ed2a1698fdf976c2bef40.svg") center / 24px no-repeat;
+                            background-color: @light;
+                        }
+                        [class*="emojiSelectButton"] {
+                            background-image: none;
+                            -webkit-mask: url("https://lf16-tiktok-web.tiktokcdn-us.com/obj/tiktok-web-tx/tiktok/web/node/_next/static/images/emoji-a0ddc869161818193cc05545d7331255.svg") center / 24px no-repeat;
+                            mask: url("https://lf16-tiktok-web.tiktokcdn-us.com/obj/tiktok-web-tx/tiktok/web/node/_next/static/images/emoji-a0ddc869161818193cc05545d7331255.svg") center / 24px no-repeat;
+                            background-color: @light;
+                        }
+                    }
+                    // emoji popup
+                    .emojiSelectPopover {
+                        background-color: @darker;
+                        > ul {
+                            border-top-color: @dark;
+                        }
+                        .emojiSelectPopoverGroupList > li > button {
+                            background-color: transparent;
+                            transition: none;
+                            &:hover {
+                                .bgHover();
+                            }
+                        }
+                    }
+                }
+                // "Post" button
+                .post-container {
+                    color: @light;
+                    &.active {
+                        color: @tiktokRed;
+                    }
+                }
+            }
+        }
+
+        // report modal popup
+        form.report {
+            background-color: @darker;
+            > div {
+                // title
+                &.report-header {
+                    > h2 {
+                        color: @white;
+                    }
+                }
+                // content
+                &.inner-container {
+                    > .reason-radios {
+                        border-color: @dividerColor;
+                        // reasons items
+                        .report-item {
+                            border-color: @dividerColor;
+                            // radio button hover
+                            &:hover {
+                                // radio button
+                                .radio-icon {
+                                    border-color: @lightest;
+                                }
+                                // text
+                                .text {
+                                    color: @white;
+                                }
+                            }
+                            // radio button checked
+                            input:checked {
+                                // radio button
+                                ~ .radio-icon {
+                                    border-color: @tiktokRed;
+                                }
+                                // text
+                                ~ .text {
+                                    color: @white;
+                                }
+                            }
+                            // radio button
+                            .radio-icon {
+                                border-color: @lighter;
+                            }
+                            // text
+                            .text {
+                                color: @lighter;
+                            }
+                        }
+                    }
+                    // description
+                    > .description {
+                        color: @light;
+                        font-size: 14px;
+                    }
+                }
+                // buttons
+                &.button-wrap {
+                    border-color: @dividerColor;
+                    button {
+                        &:hover:not([disabled]) {
+                            color: @white !important;
+                        }
+                        background-color: transparent !important;
+                        color: @lighterer !important;
+                        border: none !important;
+                        &[type="button"] {
+                            border-right: 1px solid @dividerColor !important;
+                        }
+                    }
+                }
+            }
+        }
+
+        // "Embed video" modal popup
+        .embed-card {
+            background-color: @darker;
+            // title
+            h3 {
+                color: @white;
+            }
+            // embed link
+            textarea {
+                background-color: transparent;
+                color: @lighterer;
+            }
+            // agreement
+            .embed-desc {
+                color: @light;
+                a {
+                    color: @lightest;
+                }
+            }
+            // buttons
+            .button {
+                color: @lighterer;
+                &:hover {
+                    color: @white;
+                }
+                &::after {
+                    .bgDivider();
+                }
+            }
+        }
+
+        // "Send to friends" - when sending video
+        .modal-wrapper {
+            .modal-mask {
+                .backdrop();
+            }
+            .send-message-panel-container {
+                background-color: @darker;
+                // title
+                .modal-title {
+                    color: @white;
+                }
+                // search users
+                .search-container {
+                    background-color: @dark2;
+                    // search icon
+                    > svg path {
+                        fill: @light;
+                    }
+                    > input {
+                        &::placeholder {
+                            color: @light;
+                        }
+                        &[value] {
+                            color: @lighter;
+                            // "x" icon
+                            + div svg path {
+                                fill: @light;
+                            }
+                        }
+                    }
+                }
+                // users
+                .user-list-inner-container {
+                    // titles
+                    > p {
+                        color: @white;
+                    }
+                    // user items
+                    .user-item-container {
+                        &:hover {
+                            .bgHover();
+                        }
+                        // user name
+                        .nickname > span {
+                            color: @lightest;
+                            > span {
+                                color: @blue !important;
+                            }
+                        }
+                        // username
+                        .unique-id {
+                            color: @light;
+                        }
+                        // checkbox
+                        [type="checkbox"] {
+                            border-color: @light;
+                        }
+                    }
+                }
+                // "Send" button
+                .send-container {
+                    &::before {
+                        background-color: @dividerColor;
+                    }
+                    background-color: @darker;
+                    > div {
+                        textarea {
+                            background-color: transparent;
+                            color: @lightest;
+                            &::placeholder {
+                                color: @lighter;
+                            }
+                        }
+                    }
+                    > button[class*="disabled"] {
+                        background-color: @tiktokRed;
+                        color: @white;
+                        opacity: .3;
+                    }
+
+                }
+            }
+        }
+    }
+}
+
+// user popup (when "@")
+.mentionSuggestions {
+    background-color: @darker;
+    // user items
+    [class*="mentionSuggestionsEntry"] {
+        transition: none;
+        background-color: transparent;
+        &[class$="Focused"] {
+            .bgHover();
+        }
+        // name
+        span.nickname {
+            color: @lightest;
+        }
+        // dot
+        span.dot {
+            color: @lighter;
+        }
+        // following info
+        span.follow-text {
+            color: @light !important;
+        }
+        // username
+        p.unique-id {
+            color: @lighter;
+        }
+    }
+}
+
+// SKELETON
+[class*="skeleton"]:empty {
+    background-color: @light !important;
+}
+
+}
+
+@-moz-document url-prefix("https://www.tiktok.com/search") {
+
+/***************/
+/*   /search   */
+/***************/
+
+
+// search page
+[class*="DivMainContainer "] {
+    > [class*="DivTabsContainer "] {
+        background-color: @bgColor;
+        // tabs
+        > [class*="DivTabsContainer "] {
+            &::before {
+                background-color: @lighter;
+            }
+            // "Top" "Accounts" "Videos" tabs
+            > [class*="DivTabsNavContainer "] {
+                margin: 0 auto;
+    
+                // line underneath tabs
+                > [class*="DivTabInk "] {
+                    background-color: @white;
+                }
+    
+                // tab items
+                [class*="DivTab "] {
+                    color: @lighter;
+                    transition: none;
+                    &[class*="yj1tul"] {
+                        color: @white;
+                    }
+                }
+            }
+        }
+    }
+    
+    // video/content
+    > [class*="DivPanelContainer "] {
+        width: 100%;
+
+        // titles
+        [data-e2e="search_top-item-list"] {
+            p[data-e2e="search-top-user-title"],
+            p[data-e2e="search-top-video-title"] {
+                color: @white;
+            }
+        }
+        
+        // accounts
+        [data-e2e="search-user-container"] {
+            max-width: 742px;
+            &:hover {
+                .bgHover();
+            }
+            &::after {
+                .bgDivider();
+            }
+            // username
+            [data-e2e="search-user-unique-id"] {
+                color: @lightest;
+            }
+            // user name + follower stats
+            [class*="SubTitle"],
+            span,
+            strong {
+                color: @lighter;
+            }
+            // bio
+            [class*="PDesc "] {
+                color: @light;
+                strong {
+                    color: @light;
+                }
+            }
+        }
+
+        // "Load more"
+        [data-e2e="search-load-more"] {
+            color: @lightest;
+            &:hover {
+                color: @white;
+            }
+        }
+
+        // /search item box size change
+        .tiktok-1soki6-DivItemContainerForSearch {
+            width: calc(16.66% - 12px);
+
+            // video description
+            [data-e2e="search-card-video-caption"] {
+                span,
+                a {
+                    color: @lighter;
+                }
+            }
+            // username
+            [data-e2e="search-card-user-unique-id"] {
+                color: @lightest;
+            }
+            // # of plays
+            [data-e2e="search-card-like-container"] {
+                svg path {
+                    fill: @lighterer;
+                }
+                strong {
+                    color: @lighterer;
+                }
+            }
+        }
+        @media screen and (min-width: 1072px) and (max-width: 1400px) {
+            .tiktok-1soki6-DivItemContainerForSearch {
+                width: calc(25% - 12px);
+            }
+        }
+        @media screen and (max-width: 1071px) {
+            .tiktok-1soki6-DivItemContainerForSearch {
+                width: calc(33.33% - 12px);
+            }
+        }
+
+        // SKELETON item layout
+        [data-e2e="video-skeleton-container"] {
+            width: calc(16.66% - 12px);
+        }
+        @media screen and (min-width: 1072px) and (max-width: 1400px) {
+            [data-e2e="video-skeleton-container"] {
+                width: calc(25% - 12px);
+            }
+        }
+        @media screen and (max-width: 1071px) {
+            [data-e2e="video-skeleton-container"] {
+                width: calc(33.33% - 12px);
+            }
+        }
+    }
+}
+
+}
+
+@-moz-document regexp("https://www.tiktok.com/@[\w\d._]+/live(?:[?][\w\d_&=]+)?") {
+    
+/*************************/
+/*   /@<username>/live   */
+/*************************/
+
+
+[class*="-DivLiveContainer"] > div {
+    // main content
+    &[class*="-DivLiveContent"] > [class*="-DivLiveMainContent"] > div {
+        // top [(user)/(name)/(share buttons)/(follow button)]
+        &[class*="-DivLiveRoomBanner"] {
+            background-color: black;
+            // [(username), (name)] + [(live title), (current view count)]
+            [class*="-DivUserProfile"] > div {
+                // (username) + (name)
+                > a {
+                    // username
+                    h2 {
+                        color: @lightest;
+                    }
+                    // name
+                    h1 {
+                        color: @lighter;
+                    }
+                }
+                // (live title) + (current view count)
+                > div > div {
+                    // live title
+                    &[data-e2e="user-profile-live-title"] {
+                        color: @light;
+                    }
+                    // current view count
+                    &[class*="-DivPeopleContainer"] {
+                        // icon
+                        > svg path {
+                            fill: @light;
+                        }
+                        // count
+                        > div {
+                            color: @light;
+                        }
+                    }
+                }
+                
+            }
+
+            // user popup
+            [data-e2e="user-profile-card"] {
+                background-color: @darker;
+
+                // username + name
+                > a {
+                    // username
+                    h2 {
+                        color: @lightest;
+                    }
+                    // name
+                    h3 {
+                        color: @lighter;
+                    }
+                }
+
+                // followers|likes count
+                > [class*="-DivUserStat"] > h2 {
+                    color: @lighter;
+                }
+            }
+
+            // share|3 dots|follow buttons
+            > [class*="-DivActionContainer"] {
+                > i {
+                    background-color: transparent;
+                    &:hover > svg path {
+                        fill: @white;
+                    }
+                    // icon
+                    > svg path {
+                        fill: @lighter;
+                    }
+                    // share & 3 dots popup
+                    > div {
+                        background-color: @darker;
+                        // tip arrow
+                        > svg path {
+                            fill: @darker;
+                        }
+                        // items
+                        a {
+                            &:hover {
+                                .bgHover();
+                            }
+                             span {
+                                color: @lighter;
+                            }
+                        }
+                    }
+                    // 3 dots icons
+                    &[data-e2e="report-icon"] a svg path {
+                        fill: @lighter;
+                    }
+                }
+            }
+        }
+
+        // middle (live video)
+        &[class*="DivLiveContainer "] [class*="-DivLivePlayerCurtain "] {
+            background-color: @black;
+        }
+
+        // bottom (gifts area)
+        &[class*="-DivGiftRelatedContainer"] {
+            border-bottom-color: @dividerColor;
+            // gifts + arrows
+            [data-e2e="gift-list"] > div {
+                // gift items
+                [data-e2e="gift-item"] {
+                    > div,
+                    > button {
+                        transition: none;
+                    }
+                    // gift name
+                    [class*="-DivGiftName"] {
+                        color: @lighter;
+                    }
+                    // gift cost
+                    [class*="-DivGiftCoins"] {
+                        color: @lighter;
+                    }
+                }
+                // visible arrows
+                &[class*="-DivGiftArrow "][style*="visible"] {
+                    &:hover svg path {
+                        fill: @white;
+                    }
+                    svg path {
+                        fill: @lighter;
+                    }
+                }
+            }
+            > [class*="-DivCoinContainer"] {
+                border-top-color: @dividerColor;
+                // "Coin Balance"
+                div:not([class]) {
+                    color: @lighterer;
+                }
+                // coin balance amount
+                [class*="-DivCoinNum "] {
+                    color: yellow;
+                }
+                // "Get Coins" button
+                button {
+                    .buttonRed();
+                }
+            }
+        }
+    }
+
+    // "LIVE chat"
+    [data-e2e="chat-room"] {
+        background-color: @darkest;
+        > div {
+            &[class*="-DivChatRoomHeader"] {
+                [data-e2e="chat-close-button"] {
+                    &:hover svg path {
+                        fill: @white;
+                    }
+                    svg path {
+                        fill: @lighter;
+                    }
+                }
+                div:not([data-e2e]) {
+                    color: @white;
+                }
+            }
+            // chat list
+            [class*="-DivChatMessageList"] > div {
+                &:hover {
+                    .bgHover();
+                }
+                // TikTok icons (logo, joined, liked, followed)
+                [class*="-DivMessageIconWrapper"] {
+                    background-color: transparent;
+                    svg path {
+                        fill: @white;
+                    }
+                }
+
+                // top message ("Welcome to TikTok LIVE! Have fun ...")
+                &[class*="DivChatRoomMessage-StyledRoomMessageItem"] > span {
+                    color: @white;
+                }
+
+                // regular text
+                &[data-e2e="chat-message"] {
+                    // display: none;
+                    // user name
+                    [data-e2e="message-owner-name"] {
+                        color: @lighter;
+                        &:hover {
+                            text-decoration: underline;
+                        }
+                    }
+                    [class*="-SpanChatRoomComment"] {
+                        color: @white;
+                    }
+                }
+
+                // "<user> sent likes to the host"
+                &[class*="-DivChatRoomMessage-StyledLikeMessageItem"] {
+                    // display: none;
+                    span {
+                        color: @light;
+                        // user name
+                        &[class*="-SpanNickName"]:hover {
+                            text-decoration: underline;
+                        }
+                    }
+                }
+
+                // "<user> send <gift> x<n>"
+                &[class$="DivChatRoomMessage"] {
+                    // display: none;
+                    span {
+                        color: @light;
+                        // user name
+                        &[class*="-SpanNickName"]:hover {
+                            text-decoration: underline;
+                        }
+                    }
+                }
+
+                // "<user> followed the host"
+                &[data-e2e="social-message"] {
+                    // display: none;
+                    span {
+                        color: @light;
+                        // user name
+                        &[class*="-SpanNickName"]:hover {
+                            text-decoration: underline;
+                        }
+                    }
+                }
+
+                // "<user> joined" 
+                &[data-e2e="enter-message"] {
+                    // display: none;
+                    span {
+                        color: @light;
+                    }
+                }
+
+                // 3 dots
+                [data-e2e="more-action-button"] svg {
+                    &:hover path {
+                        fill: @white;
+                    }
+                    path {
+                        fill: @light;
+                    }
+                }
+            }
+
+            // 3 dots popup
+            [data-e2e="chat-message-operator"] {
+                background-color: @darker;
+                > div {
+                    &:hover {
+                        .bgHover();
+                    }
+                    svg path {
+                        fill: @lighter;
+                    }
+                    span {
+                        color: @lighter;
+                    }
+                }
+            }
+
+            // usercard popup
+            [class*="-DivUserCardContainer"] {
+                background-color: @darker;
+                > div {
+                    &[class*="DivHeader "] {
+                        border-bottom-color: @dividerColor;
+                        // user name
+                        [class*="-SpanBoldTitle "] {
+                            color: @lightest;
+                        }
+                        // name
+                        [class*="-DivNickName "] {
+                            color: @lighter;
+                        }
+                    }
+                    &[class*="-DivBody "] {
+                        span {
+                            color: @lighter;
+                        }
+                        button {
+                            &[class*="gnvmc3"] {
+                                .buttonRed();
+                            }
+                            &[class*="1svsmd8"] {
+                                &:hover {
+                                    border: 1px solid @white;
+                                    color: @white;
+                                }
+                                background-color: transparent;
+                                border: 1px solid @lightest;
+                                color: @lightest;
+                            }
+                        }
+                    }
+                }
+
+            }
+
+            // comment box
+            &[class*="DivCommentContainer "] {
+                background-color: @darker;
+                // text area
+                [data-e2e="comment-input"] {
+                    background-color: @dark2;
+                    textarea {
+                        color: @lighter;
+                    }
+                    // text length limit
+                    [class*="DivTextLength "] {
+                        color: @light;
+                    }
+                    // when inside textarea
+                    &[class*="1w886q1"] {
+                        textarea {
+                            color: @lightest;
+                        }
+                        // emoji icon
+                        [data-e2e="comment-emoji-icon"] svg path {
+                            fill: @lighterer;
+                        }
+                    }
+                    // emoji icon
+                    [data-e2e="comment-emoji-icon"] svg path {
+                        fill: @lighter;
+                    }
+                    // emoji popup
+                    [data-e2e="emoji-panel"] {
+                        background-color: @darker;
+                        // emoji items
+                        li {
+                            &:hover {
+                                .bgClick();
+                            }
+                            background-color: transparent;
+                        }
+                        // bottom panel with 1 emoji
+                        [class*="DivTabs "] {
+                            border-top-color: @dividerColor;
+                        }
+                    }
+                }
+
+                // post icon
+                [data-e2e="comment-post"][class*="1lusqmb"] svg path {
+                    fill: @tiktokRed;
+                    opacity: 0.3;
+                }
+            }
+        }
+    }
+}
+
+// Follow button | already following
+[data-e2e="live-room-follow"] {
+    // "Follow"
+    > button {
+        .buttonRed();
+    }
+    // already following
+    > i {
+        .buttonBlue();
+    }
+}
+
+}
+
+@-moz-document 
+url-prefix("https://www.tiktok.com/live"),
+regexp("https://www.tiktok.com/@[\w\d._]+/live(?:[?][\w\d_&=]+)?") {
+
+div[class*="-DivLiveDiscoverPage"] {
+    background-color: transparent;
+}
+
+}
+
+@-moz-document url-prefix("https://www.tiktok.com/creator#/upload") {
+
+
+.main-body .layout {
+    background-color: transparent;
+
+    > .container-v2 {
+        background-color: @darkest;
+        // background-color: @dark;
+        // title
+        > span {
+            color: @white;
+        }
+        // subtitle
+        .sub-title-v2 > span {
+            color: @light;
+        }
+
+        // video preview
+        .contents-v2 > .preview {
+            // video phone preview
+            > .preview-v2 {
+                background-color: transparent;
+            }
+            > .change-video-btn {
+                background-color: transparent;
+                border-color: @middle;
+                img {
+                    .invert();
+                }
+                // file name
+                .file-text {
+                    color: @light;
+                }
+                // "Change video"
+                .btn {
+                    color: @white;
+                }
+            }
+        }
+
+        // video upload box
+        .upload-card {
+            border-color: @light;
+            &:hover {
+                border-color: @tiktokRed;
+            }
+            // title
+            .text-main span {
+                color: @white;
+            }
+            // subtitle
+            .text-sub span {
+                color: @lighterer;
+            }
+            // video info text
+            .text-video-info span {
+                color: @light;
+            }
+        }
+
+        // video info form
+        .form-v2 {            
+            // titles
+            .text-container,
+            .margin-t-24,
+            .title-v2,
+            .switch-text {
+                > span {
+                    color: @white;
+                    // text limit
+                    &.require-font {
+                        color: @light;
+                    }
+                }
+            }
+
+            // Caption box
+            .container-v2[tabindex] {
+                > .editor {
+                    div[aria-autocomplete="list"] {
+                        color: @lightest;
+                    }
+
+                    // hashtag popup
+                    .mentionSuggestions {
+                        background-color: @darkest;
+                        box-shadow: none;
+                        border: 1px solid @dark;
+                        border-radius: 4px;
+                        left: -1px !important;
+                        top: 38px !important;
+                        width: 704px !important;
+
+                        // hashtag items
+                        [class*="mentionSuggestionsEntry"] {
+                            background-color: transparent;
+                            transition: none;
+                            &:hover {
+                                .bgHover();
+                            }
+                            // hashtag text
+                            .hash-text {
+                                color: @blue;
+                            }
+                            // hashtag view count
+                            .hash-view-count {
+                                color: @light;
+                            }
+                        }
+                    }
+
+                    // hashtag selected
+                    span[class="mention"] {
+                        color: @blue;
+                    }
+                }
+                img {
+                    .invert();
+                }
+            }
+
+            // Caption "@" popup
+            .container-at {
+                > span {
+                    color: @lighterer;
+                }
+                .jsx-2745951964 {
+                    border-color: @dark;
+                    
+                    // icons + search input box
+                    > div {
+                        > img {
+                            .invert();
+                        }
+                        > input {
+                            background-color: transparent;
+                            color: @lightest;
+                        }
+                    }
+                    
+                    // search items
+                    .scroll-parent {
+                        background-color: @darkest;
+                        box-shadow: none;
+                        border: 1px solid @dark;
+                        border-radius: 4px;
+                        top: -1px;
+                        
+                        // search items
+                        .user-col.half-width {
+                            // title
+                            .title {
+                                color: @white;
+                            }
+                            .container {
+                                transition: none;
+                                background-color: transparent;
+                                // name
+                                .name {
+                                    color: @lightest;
+                                }
+                                // username
+                                .user-id {
+                                    color: @lighter;
+                                }
+                                &.focused {
+                                    .bgHover();
+                                }
+                            }
+                        }
+                    }
+                }
+            }
+
+            // Caption & Cover box style
+            .container-v2 {
+                // background-color: @darker;/
+                border-color: @dark;
+            }
+
+            // tiktok [select]
+            .tiktok-select-selector {
+                background-color: transparent !important;
+                border-color: @dark !important;
+                // current choice
+                .tiktok-select-selector-text {
+                    color: @lighter;
+                }
+                // icon
+                .tiktok-select-selector-postfix-icon svg path {
+                    fill: @lightest;
+                }
+                // dropdown popup
+                // (outside of body)
+            }
+
+            // checkbox data
+            .checkbox {
+                &:hover {
+                    label span {
+                        color: @lightest;
+                    }
+                    // unchecked
+                    .css-3wpmrz {
+                        border-color: @tiktokRed !important;
+                    }
+                }
+
+                // text
+                label span {
+                    color: @lighter;
+                }
+
+                // checkbox
+                .css-4pkwts div {
+                    // checked
+                    &.css-mbgljv {
+                        color: @white;
+                        background-color: @tiktokRed;
+                    }
+                    // unchecked
+                    &.css-3wpmrz {
+                        border-color: @light;
+                    }
+                }
+            }
+
+            // switch toggle
+            .tiktok-switch {
+                &.is-checked > div {
+                    background-color: @blue;
+                }
+                > div {
+                    background-color: @dark;
+                }
+            }
+
+            // copyright description
+            .copyright span {
+                color: @light;
+                > span {
+                    color: @lighter;
+                }
+            }
+
+            // copyright popup
+            .tiktok-modal__modal-wrapper {
+                background-color: @darker;
+                // title
+                .modal-title {
+                    color: @white;
+                }
+                // divider
+                .tiktok-modal__modal-divider {
+                    .bgDivider();
+                }
+                // description
+                .modal-content {
+                    color: @lighter;
+                }
+            }
+
+            // disabled "Post" button
+            .btn-post button[disabled] {
+                .buttonRedFullDisabled();
+                border: none;
+            }
+
+        }
+    }
+}
+
+// dropdown
+.tiktok-select-dropdown {
+    background-color: @darker;
+    .tiktok-select-dropdown-item {
+        color: @lighter;
+        background-color: @darker;
+        &:hover {
+            .bgHover();
+        }
+        &.is-selected {
+            background-color: @dark !important;
+        }
+    }
+}
+
+
+// "Discard this post?" popup
+#portal-container .modal {
+    background-color: @darker;
+    // title
+    .modal-title {
+        color: @white;
+    }
+    // subtitle
+    .modal-sub-title {
+        color: @lighter;
+    }
+    // buttons
+    .modal-btn {
+        &:hover {
+            .bgHover();
+        }
+        border-top-color: @dividerColor;
+        &:not(.emphasis) {
+            color: @lighterer;
+        }
+    }
+
+}
+
+}
+
+@-moz-document url-prefix("https://www.tiktok.com/setting") {
+
+/****************/
+/*   /setting   */
+/****************/
+
+
+.main-body > div {
+    // back button
+    &.setting-back {
+        background-color: @darkest;
+        &:hover svg path {
+            fill: @white;
+        }
+        svg path {
+            fill: @lighterer;
+        }
+    }
+
+    // left & right
+    &.row-layout-background {
+        background-color: @black;
+        .row-layout-container > div {
+
+            // left
+            &.row-layout-nav > div {
+                // background-color: @dark;
+                background-color: @darkest;
+
+                // navigation items
+                > div {
+                    &:hover {
+                        path {
+                            fill: @white;
+                        }
+                        span {
+                            color: @white !important;
+                        }
+                    }
+                    // icons
+                    svg {
+                        path {
+                            fill: @lighterer;
+                        }
+                        &[fill^="#"] path {
+                            fill: @tiktokRed;
+                        }
+                    }
+                    // text
+                    span {
+                        color: @lighterer !important;
+                        &.selected {
+                            color: @tiktokRed !important;
+                        }
+                    }
+                }
+            }
+
+            // right
+            &.row-layout-content-container {
+                // background-color: @darker;
+                background-color: @darkest;
+
+                // settings items
+                .row-layout-content {
+                    // divider
+                    &::after,
+                    ::after {
+                        .bgDivider();
+                    }
+                    // custom "dividers"
+                    .setting-subrow:not(:last-child) {
+                        border-bottom-color: @dividerColor;
+                    }
+                    // title
+                    .setting-title {
+                        color: @white;
+                    }
+                    // subtitle
+                    .setting-subtitle {
+                        color: @lighterer;
+                    }
+                    // option
+                    .setting-option {
+                        color: @lighter;
+                    }
+                    // description
+                    .setting-description {
+                        color: @light;
+                    }
+                    // icons
+                    svg path {
+                        fill: @white;
+                    }
+                    // switch toggle
+                    .switch-container {
+                        background-color: @dark;
+                        &.on {
+                            background-color: @blue;
+                        }
+                    }
+                    // drop down
+                    .preference-detail {
+                        background-color: rgb(@black, 0.2);
+                        // preference items
+                        .preference-switch-text {
+                            color: @lighter;
+                        }
+                    }
+                }
+
+                // setting selection
+                .jsx-3453939526 > div {
+
+                    // "Blocked accounts"
+                    &.block-container {
+                        // title
+                        .block-title {
+                            color: @white;
+                        }
+                        // username
+                        .username {
+                            color: @lighterer;
+                        }
+                        // text
+                        p {
+                            color: @light;
+                        }
+                        // "Unblock" button
+                        button {
+                            .buttonRed();
+                        }
+                    }
+
+                    // "Download TikTok data"
+                    &.dyd-main {
+                        // title
+                        .dyd-title {
+                            color: @white;
+                        }
+                        // tabs
+                        p {
+                            // selected
+                            &.css-1e46po4 {
+                                color: @white;
+                            }
+                            // not selected
+                            &.css-oktxp7 {
+                                color: @lighter;
+                            }
+                        }
+                        // slider
+                        .css-rysuhk {
+                            background-color: @white;
+                        }
+                    }
+
+                    // "Download TikTok data" - tabs
+                    &:not(.dyd-main) {
+
+                        // request description
+                        .dyd-description {
+                            background-color: @black;
+                            color: @white;
+                        }
+
+                        // 'Request data' tab
+                        .dydrequest-container {
+
+                            // icons
+                            svg[fill] path {
+                                fill: @lighter;
+                            }
+                            // title
+                            .request-title {
+                                color: @lightest;
+                            }
+                            // subtitle
+                            .request-subtitle {
+                                color: @lighterer;
+                            }
+                            // sub description
+                            .request-subdescription {
+                                color: @light;
+                            }
+                            // radio buttons
+                            [data-tux-radio-input] {
+                                &:checked ~ svg {
+                                    color: @tiktokRed;
+                                }
+                                ~ svg {
+                                    color: @light;
+                                }
+                            }
+                        }
+                        
+                        // 'Download data' tab (1)-empty
+                        > svg path {
+                            fill: @lighter;
+                            ~ .empty-title {
+                                color: @lightest;
+                            }
+                            ~ .empty-desc {
+                                color: @light;
+                            }
+                        }
+
+                        // 'Download data' tab (2)-download
+                        .download-row-block {
+                            background-color: transparent;
+                            border-color: @light;
+                            // "Data for <username>"
+                            .download-name {
+                                color: @white;
+                            }
+                            // description
+                            .download-description {
+                                color: @lightest;
+                            }
+                            // button
+                            button {
+                                // background-color: @blue;
+                                // border: none;
+                                // color: @black;
+                                &[disabled] {
+                                    opacity: 0.5;
+                                }
+                            }
+                        }
+                    }
+                }
+            }
+        }
+    }
+}
+
+}
+
+@-moz-document 
+url-prefix("https://www.tiktok.com/login"),
+url-prefix("https://www.tiktok.com/signup") {
+
+/***************/
+/*   /login    */
+/*   /signup   */
+/***************/
+
+
+// "Log in to TikTok"
+#app > [class*="DivContainer "] > div {
+    // top bar
+    &[class*="DivHeaderContainer "] {
+        background-color: transparent;
+        // logo
+        [data-e2e="tiktok-logo"] svg {
+            .invert();
+        }
+        // "Feedback and held"
+        div > a.help-center {
+            color: @lighter;
+        }
+    }
+
+    // title + "Continue with ..." items
+    &#loginContainer {
+        // title
+        [class*="DivTitle "] {
+            color: @white;
+        }
+        // description
+        [class*="-DivDescriptionContainer "] {
+            color: @lighter;
+        }
+        // "Continue with ..." items
+        [class*="DivBoxContainer "] {
+            border-color: @dark;
+            color: @lightest;
+            &:hover {
+                .bgHover();
+            }
+        }
+        // steps ("Log in with QR code")
+        [class*="PStep "] {
+            color: @lightest;
+        }
+        // "See how" hover popup ("Log in with QR code")
+        [class*="DivTipImageMask "] {
+            background-color: @black;
+        }
+        // form ("Log in")
+        form {
+            // "Email or username" / "Phone"
+            [class*="DivDescription "] {
+                color: @lightest;
+            }
+            // links
+            [class*="ALink-StyledLink"] {
+                color: @lighter;
+                &:hover {
+                    text-decoration: underline;
+                }
+            }
+            // dropdown select boxes ("When’s your birthday?")
+            [class*="DivAgeSelector "] > [class*="DivSelector "] {
+                background-color: @darkest;
+                // quick preview of selected item
+                [class*="DivSelectLabel "] {
+                    color: @lightest;
+                    svg path {
+                        fill: @white;
+                    }
+                }
+                // items box
+                [class*="DivOptionsWarpper "] {
+                    background-color: @darkest;
+                    // items
+                    > div {
+                        &:hover {
+                            .bgHover();
+                        }
+                        color: @lighterer;
+                    }
+                }
+            }
+            // "Send code" button
+            [class*="ButtonSendCode "] {
+                color: @lightest;
+                background-color: @black;
+                &[disabled] {
+                    color: rgb(@lightest, 0.25);
+                }
+            }
+            // phone box
+            [class*="DivPhoneInputContainer "] {
+                ::after {
+                    background-color: @dividerColor;
+                }
+                // when error
+                &[class*="pgkamo"] {
+                    border-color: @tiktokRed;
+                    input {
+                        color: @tiktokRed;
+                    }
+                    + [type="error"] {
+                        display: flex;
+                    }
+                }
+                + [type="error"] {
+                    display: none;
+                }
+                // country + country code
+                [class*="DivAreaLabelContainer "] {
+                    [class*="SpanLabelContainer "] {
+                        color: @lightest;
+                    }
+                    svg path {
+                        fill: @white;
+                    }
+                }
+                // country popup
+                [class*="DivSelectorContainer "] {
+                    background-color: @darkest;
+                    border-color: @dark;
+                    // search box
+                    [class*="DivSearchContainer "] {
+                        background-color: transparent;
+                        border-bottom-color: @dark;
+                        // search icon
+                        svg path {
+                            fill: @lightest;
+                        }
+                    }
+                    // country items
+                    li {
+                        &:hover {
+                            .bgHover();
+                        }
+                        span {
+                            color: @lighterer;
+                            span[style] {
+                                color: @blue !important;
+                            }
+                        }
+                        svg path {
+                            fill: @white;
+                        }
+                    }
+                }
+            }
+            // input boxes style
+            [class*="DivPhoneInputContainer "],
+            [class*="DivCodeInputContainer "],
+            [class*="DivInputContainer "] {
+                background-color: @darkest;
+                border: 1px solid @dark;
+                border-radius: 4px;
+
+                &:focus-within {
+                    border-color: @middle;
+                    input {
+                        &::placeholder {
+                            color: @light;
+                        }
+                    }
+                }
+                // text
+                input {
+                    background-color: rgb(@darkest, 0.10);
+                    color: @lightest;
+                    &::placeholder {
+                        color: @middle;
+                    }
+                    // if contains error
+                    &[class*="6nf298"] {
+                        color: @tiktokRed;
+                    }
+                    // password icon
+                    + div > [class*="IPasswordIcon"] svg path {
+                        stroke: @white;
+                    }
+                }
+            }
+            // password requirements
+            [class*="PDescriptionTitleContainer "] {
+                color: @white;
+                // password requirements
+                ~ [class*="DivTextContainer "] {
+                    &[type="default"] {
+                        color: @lighter;
+                        svg path {
+                            fill: @lighter;
+                        }
+                    }
+                    &[type="success"] {
+                        color: @blue;
+                        svg path {
+                            fill: @blue;
+                        }
+                    }
+                    &[type="error"] {
+                        color: @tiktokRed;
+                        svg path {
+                            fill: @tiktokRed;
+                        }
+                    }
+                }
+            }
+        }
+        // down arrow (more)
+        [class*="DivShowMore "] > svg path {
+            fill: @white;
+        }
+    }
+
+    &[class*="DivFooterContainer "] {
+        background-color: transparent;
+        // "Don’t have an account? Sign up"
+        [class*="DivContainer "] {
+            border-top-color: @dividerColor;
+            color: @light;
+        }
+    }
+    // "Sign up for TikTok"
+    [class*="DivAgreement"] {
+        background-color: transparent;
+        > p {
+            color: @lighter;
+            a {
+                color: @lightest;
+            }
+        }
+    }
+}
+
+}
+
+@-moz-document url-prefix("https://www.tiktok.com/coin") {
+
+/**************/
+/*   /coin    */
+/**************/
+
+
+#app [class*="DivMainContainer "] {
+    // "?" button
+    > button {
+        background-color: @darkest;
+        border-color: transparent;
+        &:hover svg path {
+            fill: @white;
+        }
+        svg path {
+            fill: @lighterer;
+        }
+    }
+    // content
+    > div {
+        background-color: @darkest;
+        > div {
+
+            > section > div {
+                // "Get coins"  "View transaction history"
+                &[class*="DivTitleInfoContainer "] {
+                    span {
+                        color: @white;
+                    }
+                    a span {
+                        color: @lighterer;
+                        &:hover {
+                            text-decoration: underline;
+                        }
+                    }
+                }
+                // username + coin count
+                &[class*="DivProfileInfo "] {
+                    background-color: @darker2;
+                    // username
+                    [class*="SpanNameInfo "] {
+                        color: @lightest;
+                    }
+                    // coin count
+                    [class*="SpanCoinNum "] {
+                        color: @lighter;
+                    }
+                }
+            }
+            // "Buy coins"
+            > p {
+                color: @white;
+                div {
+                    span {
+                        color: @white;
+                    }
+                    div {
+                        &:hover svg path {
+                            fill: @lighter;
+                        }
+                        svg path {
+                            fill: @light;
+                        }
+                    }
+                }
+            }
+            // coin bundles
+            > [class*="DivCoinsBkgContainer "] > div {
+                // web offer
+                &[class*="DivOfferInfo "] span {
+                    color: @lighterer;
+                }
+                // buy coin
+                &[class*="DivCoinsListContainer "] [class*="DivContainer"] {
+                    border-color: @dark;
+                    // number of coins
+                    [class*="SpanNumDisplay "] {
+                        color: @lighter;
+                    }
+                    // cost
+                    [class*="SpanTextNow "] {
+                        color: @white;
+                    }
+                    // custom number of coins
+                    input {
+                        color: @white;
+                        border-color: @white;
+                    }
+                }
+            }
+            // payment method + total
+            > [class*="DivTotalContainer "] span {
+                color: @white;
+            }
+            // "Buy now" button
+            > [class*="DivButtonContainer "] button[disabled] {
+                .buttonRedFullDisabled();
+            }
+
+
+            // "Transaction history
+            &[class*="DivContentWrapper "] {
+                // title
+                [class*="SpanTitle "] {
+                    color: @white;
+                }
+                // description
+                [class*="SpanDesText "] {
+                    color: @light;
+                }
+                // coin terms
+                [class*="SpanTermText "] {
+                    color: @lighterer;
+                }
+                // transaction chart
+                [class*="DivChartContentWrapper "] {
+                    ::before {
+                        .bgDivider();
+                    }
+                    [class*="DivText "] {
+                        color: @lighter;
+                    }
+                }
+            }
+        }
+    }
+}
+}
