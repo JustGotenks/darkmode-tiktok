@@ -10,24 +10,47 @@
 @version        1.0.0
 @preprocessor   stylus
 
-@var color _bg_main    'Background Color' #000000
-@var color _bg_topbar  'Topbar Background Color' #121212
-@var color _bg_sidebar 'Sidebar Background Color' #121212
 
-@var select  c_sidebar        '=[[ Side bar ]]='                ['H1']
-@var color    _c_sb_selected    '--Selected'    #fe2c55
-@var color    _c_sb_unselected  '--Unselected'  #a6a6a6
-@var color    _c_sb_title       '--Title'       #ffffff
-@var color    _c_sb_uname       '--Username'    #c8c8c8
-@var color    _c_sb_name        '--Name'        #6f6f6f
-@var color    _c_sb_discover    '--Discover'    #6f6f6f
-@var select  r_sidebar         '- [ Remove ] -'                 ['H2']
-@var checkbox _r_sb_topics      '----"Popular topics"'      0
-@var checkbox _r_sb_suggested   '----"Suggested accounts"'  1
-@var checkbox _r_sb_following   '----"Following accounts"'  0
-@var checkbox _r_sb_discover    '----"Discover"'            0
-@var checkbox _r_sb_suggested_h '----"Suggested hosts"'     0
-@var checkbox _r_sb_footer      '----Footer'                1
+@var color _bg_main    'Background Color'           #000000
+@var color _bg_topbar  'Topbar Background Color'    #121212
+@var color _bg_sidebar 'Sidebar Background Color'   #121212
+
+@var select   _sidebar           '▼▼ [[ Side bar ]] ▼▼'       ['_']
+@var color     _c_sb_selected      '▶ Selected'       #fe2c55
+@var color     _c_sb_unselected    '▶ Unselected'     #a6a6a6
+@var color     _c_sb_title         '▶ Title'          #ffffff
+@var color     _c_sb_uname         '▶ Username'       #c8c8c8
+@var color     _c_sb_name          '▶ Name'           #6f6f6f
+@var color     _c_sb_discover      '▶ Discover'       #6f6f6f
+@var select   r_sidebar           '▶▽ [ Remove ] ▽'           ['_']
+@var checkbox  _r_sb_topics        '▶▷ "Popular topics"'      0
+@var checkbox  _r_sb_suggested     '▶▷ "Suggested accounts"'  1
+@var checkbox  _r_sb_following     '▶▷ "Following accounts"'  0
+@var checkbox  _r_sb_discover      '▶▷ "Discover"'            0
+@var checkbox  _r_sb_suggested_h   '▶▷ "Suggested hosts"'     0
+@var checkbox  _r_sb_footer        '▶▷ Footer'                1
+
+@var select _feed            '▼▼ [[ Video Feed ]] ▼▼'            ['_']
+@var color   _c_f_uname        '▶ Username'          #e6e6e6
+@var color   _c_f_name         '▶ Name'              #a6a6a6
+@var color   _c_f_date         '▶ Date/time'         #6f6f6f
+@var color   _c_f_text         '▶ Regular Text'      #e6e6e6
+@var color   _c_f_uname_link   '▶ Username mention'  #ffa500
+@var color   _c_f_hashtag      '▶ Hashtag'           #5a5a5a
+@var color   _c_f_music        '▶ Music'             #5a5a5a
+@var select c_sad_box_info     '( Stitch|Answer|Duet box )'      ['_']
+@var color   _c_f_sad_box      '▶ SAD box'           #252525
+@var color   _c_f_sad_uname    '▶ SAD Username'      #ffa500
+@var color   _c_f_sad_icon     '▶ SAD Icon'          #ffa500
+
+@var select   _livechat         '▼▼ [[ LIVE Chat ]] ▼▼'                                             ['_']
+@var select   r_livechat        '▶▽ [ Remove ] ▽'                                                  ['_']
+@var checkbox  _r_lc_guidelines '▶▷ "Welcome to TikTok ..."'                                         1
+@var checkbox  _r_lc_text       '▶▷ Regular Text'                                                    0
+@var checkbox  _r_lc_followed   '▶▷ "<user> followed the host" + "<user> shared the LIVE video"'     1
+@var checkbox  _r_lc_sent_likes '▶▷ "<user> sent likes to the host"'                                 1
+@var checkbox  _r_lc_sent_gift  '▶▷ "<user> sent <gift>"'                                            1
+@var checkbox  _r_lc_joined     '▶▷ "<user> joined"'                                                 1
 
 ==/UserStyle== */
 
@@ -1084,14 +1107,14 @@ backdrop() {
                         &[class*="-DivTextInfoContainer "] {
                             > div[class*="-DivAuthorContainer "] > a:last-child {
                                 // date/time (available when in /following)
-                                color: c-light;
+                                color: _c_f_date;
                                 // username
                                 h3[data-e2e="video-author-uniqueid"] {
-                                    color: c-lightest;
+                                    color: _c_f_uname;
                                 }
                                 // name
                                 h4[data-e2e="video-author-nickname"] {
-                                    color: c-lighter;
+                                    color: _c_f_name;
                                 }
                             }
                 
@@ -1111,41 +1134,41 @@ backdrop() {
                             > div[data-e2e="video-desc"] {
                                 // regular text
                                 > span {
-                                    color: c-lightest;
+                                    color: _c_f_text;
                                 }
                                 
                                 // hashtags, usernames, stitch|duet|answer
                                 > a {
                                     // hashtags
                                     &[href^="/tag/"] {
-                                        color: c-middle;
+                                        color: _c_f_hashtag;
                                     }
                                     // usernames
                                     &[href^="/@"],
                                     &[href="/"] {
-                                        color: my-orange;
+                                        color: _c_f_uname_link;
                                     }
                                     // stitch|duet|answer box
                                     &[href*="/video/"],
                                     &[href^="/question/"] {
-                                        background: c-darker;
+                                        background: _c_f_sad_box;
                                         border-radius: 2px;
                                         // icon
                                         use {
-                                            fill: my-orange;
+                                            fill: _c_f_sad_icon;
                                         }
                                         // username
                                         strong {
-                                            color: my-orange;
+                                            color: _c_f_sad_uname;
                                         }
                                     }
                                 }
                             }
                             // music
                             > h4[data-e2e="video-music"] a {
-                                color: c-middle;
+                                color: _c_f_music;
                                 svg use {
-                                    fill: c-middle;
+                                    fill: _c_f_music;
                                 }
                             }
                         }
@@ -1291,13 +1314,14 @@ backdrop() {
                         > a > span {
                             // username
                             &[data-e2e="browse-username"] {
-                                color: c-lightest;
+                                color: _c_f_uname;
                             }
                             // name
                             &[data-e2e="browser-nickname"] {
-                                color: c-lighter;
+                                color: _c_f_name;
+                                // date/time
                                 > span {
-                                    color: c-light;
+                                    color: _c_f_date;
                                 }
                             }
                         }
@@ -1318,39 +1342,40 @@ backdrop() {
                         > div[data-e2e="browse-video-desc"] {
                             // regular text
                             > span {
-                                color: c-lightest;
+                                color: _c_f_text;
                             }
                             // hashtags, usernames, stitch|duet|answer
                             > a {
+                                // hashtags
                                 &[href^="/tag/"] {
-                                    color: c-middle;
+                                    color: _c_f_hashtag;
                                 }
                                 // usernames
                                 &[href^="/@"],
                                 &[href="/"] {
-                                    color: my-orange;
+                                    color: _c_f_uname_link;
                                 }
                                 // stitch|duet|answer box
                                 &[href*="/video/"],
                                 &[href^="/question/"] {
-                                    background: c-darker;
+                                    background: _c_f_sad_box;
                                     border-radius: 2px;
                                     // icon
                                     use {
-                                        fill: my-orange;
+                                        fill: _c_f_sad_icon;
                                     }
                                     // username
                                     strong {
-                                        color: my-orange;
+                                        color: _c_f_sad_uname;
                                     }
                                 }
                             }
                         }
                         // music
                         > h4[data-e2e="browse-music"] > a {
-                            color: c-middle;
+                            color: _c_f_music;
                             svg use {
-                                fill: c-middle;
+                                fill: _c_f_music;
                             }
                         }
                         // Like, Comment, Share buttons, & Copy link box
@@ -2825,11 +2850,11 @@ backdrop() {
                 &.user-info-container {
                     // username
                     .user-username {
-                        color: c-lightest;
+                        color: _c_f_uname;
                     }
-                    // name
+                    // name + date/time (cant separate)
                     .user-nickname {
-                        color: c-lighter;
+                        color: _c_f_name;
                     }
                 }
 
@@ -2878,30 +2903,30 @@ backdrop() {
                     > .video-meta-title {
                         // regular text
                         > strong {
-                            color: c-lightest;
+                            color: _c_f_text;
                         }
                         // hashtags, usernames, stitch|duet|answer
                         > a {
                             &[href^="/tag/"] {
-                                color: c-middle;
+                                color: _c_f_hashtag;
                             }
                             // usernames
                             &[href^="/@"],
                             &[href="/"] {
-                                color: my-orange;
+                                color: _c_f_uname_link;
                             }
                             // stitch|duet|answer box
                             &[href*="/video/"],
                             &[href^="/question/"] {
-                                background: c-darker;
+                                background: _c_f_sad_box;
                                 border-radius: 2px;
                                 // icon
                                 path {
-                                    fill: my-orange;
+                                    fill: _c_f_sad_icon;
                                 }
                                 // username
                                 strong {
-                                    color: my-orange;
+                                    color: _c_f_sad_uname;
                                 }
                             }
                         }
@@ -2909,9 +2934,9 @@ backdrop() {
 
                     // music
                     > .music-info > a {
-                        color: c-middle;
+                        color: _c_f_music;
                         svg path {
-                            fill: c-middle;
+                            fill: _c_f_music;
                         }
                     }
 
@@ -3674,13 +3699,16 @@ backdrop() {
                     }
 
                     // top message ("Welcome to TikTok LIVE! Have fun ...")
-                    &[class*="DivChatRoomMessage-StyledRoomMessageItem"] > span {
-                        color: c-white;
+                    &[class*="DivChatRoomMessage-StyledRoomMessageItem"] {
+                        display: _r_lc_guidelines ? none : flex;
+                        > span {
+                            color: c-white;
+                        }
                     }
 
                     // regular text
                     &[data-e2e="chat-message"] {
-                        // display: none;
+                        display: _r_lc_text ? none : flex;
                         // user name
                         [data-e2e="message-owner-name"] {
                             color: c-lighter;
@@ -3695,7 +3723,7 @@ backdrop() {
 
                     // "<user> sent likes to the host"
                     &[class*="-DivChatRoomMessage-StyledLikeMessageItem"] {
-                        // display: none;
+                        display: _r_lc_sent_likes ? none : flex;
                         span {
                             color: c-light;
                             // user name
@@ -3705,9 +3733,9 @@ backdrop() {
                         }
                     }
 
-                    // "<user> send <gift> x<n>"
+                    // "<user> sent <gift> x<n>"
                     &[class$="DivChatRoomMessage"] {
-                        // display: none;
+                        display: _r_lc_sent_gift ? none : flex;
                         span {
                             color: c-light;
                             // user name
@@ -3717,9 +3745,9 @@ backdrop() {
                         }
                     }
 
-                    // "<user> followed the host"
+                    // "<user> followed the host" + "<user> shared the LIVE video"
                     &[data-e2e="social-message"] {
-                        // display: none;
+                        display: _r_lc_followed ? none : flex;
                         span {
                             color: c-light;
                             // user name
@@ -3731,7 +3759,7 @@ backdrop() {
 
                     // "<user> joined" 
                     &[data-e2e="enter-message"] {
-                        // display: none;
+                        display: _r_lc_joined ? none : flex;
                         span {
                             color: c-light;
                         }
