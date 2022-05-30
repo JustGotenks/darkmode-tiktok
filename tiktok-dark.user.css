@@ -1,5 +1,5 @@
 /* ==UserStyle==
-@name           Nice TikTok Dark Mode
+@name           TikTok Dark Mode
 @description    Another dark mode theme for TikTok.
 @namespace      github.com/iGotenks/darkmode-tiktok
 @homepageURL    https://github.com/iGotenks/darkmode-tiktok
@@ -10,10 +10,38 @@
 @version        1.0.0
 @preprocessor   stylus
 
-@var checkbox test 'Remove something' 0
+@var color _bg_main    'Background Color' #000000
+@var color _bg_topbar  'Topbar Background Color' #121212
+@var color _bg_sidebar 'Sidebar Background Color' #121212
 
+@var select  c_sidebar        '=[[ Side bar ]]='                ['H1']
+@var color    _c_sb_selected    '--Selected'    #fe2c55
+@var color    _c_sb_unselected  '--Unselected'  #a6a6a6
+@var color    _c_sb_title       '--Title'       #ffffff
+@var color    _c_sb_uname       '--Username'    #c8c8c8
+@var color    _c_sb_name        '--Name'        #6f6f6f
+@var color    _c_sb_discover    '--Discover'    #6f6f6f
+@var select  r_sidebar         '- [ Remove ] -'                 ['H2']
+@var checkbox _r_sb_topics      '----"Popular topics"'      0
+@var checkbox _r_sb_suggested   '----"Suggested accounts"'  1
+@var checkbox _r_sb_following   '----"Following accounts"'  0
+@var checkbox _r_sb_discover    '----"Discover"'            0
+@var checkbox _r_sb_suggested_h '----"Suggested hosts"'     0
+@var checkbox _r_sb_footer      '----Footer'                1
 
 ==/UserStyle== */
+
+
+// Side bar
+c-sb-selected-text = _c_sb_selected;
+c-sb-selected-icon = _c_sb_selected;
+c-sb-unselected-text = _c_sb_unselected;
+c-sb-unselected-icon = darken(_c_sb_unselected, 25%);
+c-sb-title = _c_sb_title;
+c-sb-uname = _c_sb_uname;
+c-sb-name = _c_sb_name;
+c-sb-discover = _c_sb_discover;
+c-sb-discover-hover = lighten(_c_sb_discover, 25%);
 
 
 c-black  = black;
@@ -32,10 +60,6 @@ c-lightest = #e6e6e6;
 c-white = white;
 
 c-divider = #404040;
-
-bg-main = c-black;
-bg-sidebar = c-darkest;
-bg-topbar = c-darkest;
 
 tiktok-red = #fe2c55;
 tiktok-blue = #59c2e4;
@@ -63,14 +87,14 @@ inv() {
     filter: invert(1)
 }
 
-myButton(a_color) {
+myButton(color_) {
     background-color: transparent;
-    border: 1px solid convert(a_color + "-light");
-    color: convert(a_color + "-light");
+    border: 1px solid convert(color_ + "-light");
+    color: convert(color_ + "-light");
     &:hover {
         background-color: transparent;
-        border: 1px solid convert(a_color);
-        color: convert(a_color);
+        border: 1px solid convert(color_);
+        color: convert(color_);
     }
 }
 buttonRed() {
@@ -97,7 +121,7 @@ backdrop() {
 
     // Top bar from "/"
     #app div.tiktok-12azhi0-DivHeaderContainer {
-        background: bg-topbar;
+        background: _bg_topbar;
         box-shadow: rgb(0 0 0) 0px -2px 14px 0px;
 
         > div[class*="-DivHeaderWrapperMain"] {
@@ -455,12 +479,12 @@ backdrop() {
     /* Background Color */
     #main,
     .main-body {
-        background: bg-main !important;
+        background: _bg_main !important;
     }
 
     // Top bar from "/messages"
     #main > .header-container {
-        background: bg-topbar;
+        background: _bg_topbar;
         border-bottom: 0;
         box-shadow: rgb(0 0 0) 0px -2px 14px 0px;
 
@@ -845,7 +869,7 @@ backdrop() {
 @-moz-document domain("www.tiktok.com") {
 
     body {
-        background-color: bg-main;
+        background-color: _bg_main;
     }
 
 
@@ -891,11 +915,7 @@ backdrop() {
 
     // Side bar
     div.e14l9ebt0 {
-        background: bg-sidebar;
-
-        // &:not(:hover) {
-        //     opacity: 0.5;
-        // }
+        background: _bg_sidebar;
 
         > .e14l9ebt2 > div {
             // Main ("For You", "Following", "LIVE") and "Popular topics"
@@ -909,22 +929,22 @@ backdrop() {
                 svg {
                     // unselected item
                     path {
-                        fill: c-lighter;
+                        fill: c-sb-unselected-icon;
                     }
                     ~ h2 {
-                        color: c-lighterer;
+                        color: c-sb-unselected-text;
                     }
                     // selected item
                     &[fill*="rgba(254\,"] {
                         path {
-                            fill: tiktok-red;
+                            fill: c-sb-selected-icon;
                             // play icon (on /live only)
                             &[fill="white"] {
-                                fill: c-black;
+                                fill: _bg_sidebar;
                             }
                         }
                         ~ h2 {
-                            color: tiktok-red;
+                            color: c-sb-selected-text;
                         }
                     }
                 }
@@ -938,18 +958,18 @@ backdrop() {
                 }
                 // usernames
                 h4[data-e2e$="-user-title"] {
-                    color: c-lighterer;
+                    color: c-sb-uname;
                 }
                 // names
                 p[data-e2e$="-user-desc"] {
-                    color: c-light;
+                    color: c-sb-name;
                 }
             }
             // "Suggested hosts" (on /live only)
             &[class*="-DivSideNavChannel"] > div {
                 // title
                 &[data-e2e="live-side-nav-channel-title"] {
-                    color: c-white;
+                    color: c-sb-title;
                 }
                 > div[data-e2e="live-side-nav-item"] {
                     border-radius: 5px;
@@ -958,11 +978,11 @@ backdrop() {
                     }
                     // username
                     span[data-e2e="live-side-nav-name"] {
-                        color: c-lighterer;
+                        color: c-sb-uname;
                     }
                     // name
                     div[class*="-DivSideNavNickName"] {
-                        color: c-light;
+                        color: c-sb-name;
                     }
                     // viewer count
                     div[data-e2e="person-count"] {
@@ -970,19 +990,19 @@ backdrop() {
                     }
                 }
             }
-            // "Discover"
+            // "Discover" - hashtags & music
             &[class*="-DivDiscoverContainer"] div[data-e2e="nav-discover-list"] > a > div {
                 background: transparent;
-                border-color: c-light;
+                border-color: c-sb-discover;
 
                 &:hover {
-                    border-color: c-lighterer;
+                    border-color: c-sb-discover-hover;
                     svg, p {
-                        color: c-lighterer;
+                        color: c-sb-discover-hover;
                     }
                 }
                 svg, p {
-                    color: c-lighter;
+                    color: c-sb-discover;
                 }
             }
             // Footer
@@ -999,11 +1019,49 @@ backdrop() {
             }
             // titles
             > p {
-                color: c-white;
+                color: c-sb-title;
             }
             // "Log in" button (when logged out)
             [data-e2e="nav-login-button"] {
                 buttonRed();
+            }
+
+            //// for removing sections
+            // "Popular topics"
+            if _r_sb_topics {
+                &[class*="-DivTopicContainer"] {
+                    display: none;
+                }
+            }
+            // "Suggested accounts"
+            if _r_sb_suggested {
+                &[class*="-DivUserContainer"]:nth-child(3) {
+                    display: none;
+                }
+            }
+            // "Following accounts"
+            if _r_sb_following {
+                &[class*="-DivUserContainer"]:nth-child(4) {
+                    display: none;
+                }
+            }
+            // "Discover"
+            if _r_sb_discover {
+                &[class*="-DivDiscoverContainer"] {
+                    display: none;
+                }
+            }
+            // "Suggested hosts"
+            if _r_sb_suggested_h {
+                &[class*="-DivSideNavChannel"] {
+                    display: none;
+                }
+            }
+            // Footer
+            if _r_sb_footer {
+                &[class*="-DivFooterContainer"] {
+                    display: none;
+                }
             }
         }
     }
@@ -1013,10 +1071,9 @@ backdrop() {
     div.tiktok-19fglm-DivBodyContainer {
 
         > div[class*="-DivMainContainer "] {
-            // margin: 0 auto;
 
             div.tiktok-1p48f7x-DivItemContainer {
-                // border: 1px solid red;
+                
                 // divider
                 &::after {
                     bgDivider();
@@ -1913,7 +1970,7 @@ backdrop() {
                     // "Send" button
                     > [class*="DivSendContainer "] {
                         &::before {
-                            background-color: c-divider;
+                            bgDivider();
                         }
                         background-color: c-darker;
                         > div {
@@ -2187,7 +2244,7 @@ backdrop() {
                             // phone box
                             [class*="DivPhoneInputContainer "] {
                                 ::after {
-                                    background-color: c-divider;
+                                    bgDivider();
                                 }
                                 // when error
                                 &[class*="pgkamo"] {
@@ -3228,7 +3285,7 @@ backdrop() {
                     // "Send" button
                     .send-container {
                         &::before {
-                            background-color: c-divider;
+                            bgDivider();
                         }
                         background-color: c-darker;
                         > div {
@@ -3298,7 +3355,7 @@ backdrop() {
     // search page
     [class*="DivMainContainer "] {
         > [class*="DivTabsContainer "] {
-            background-color: bg-main;
+            background-color: _bg_main;
             // tabs
             > [class*="DivTabsContainer "] {
                 &::before {
@@ -4157,7 +4214,7 @@ backdrop() {
 
         // left & right
         &.row-layout-background {
-            background-color: c-black ;
+            background-color: _bg_main;
             .row-layout-container > div {
 
                 // left
@@ -4469,7 +4526,7 @@ backdrop() {
                 // phone box
                 [class*="DivPhoneInputContainer "] {
                     ::after {
-                        background-color: c-divider;
+                        bgDivider();
                     }
                     // when error
                     &[class*="pgkamo"] {
