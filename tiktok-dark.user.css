@@ -7,7 +7,7 @@
 @updateURL      https://userstyles.world/api/style/4928.user.css
 @author         Gotenks (https://github.com/iGotenks)
 @license        MIT
-@version        1.0.0
+@version        1.1.0
 @preprocessor   stylus
 
 
@@ -1143,9 +1143,10 @@ backdrop() {
                                     &[href^="/tag/"] {
                                         color: _c_f_hashtag;
                                     }
-                                    // usernames
+                                    // username mention
                                     &[href^="/@"],
-                                    &[href="/"] {
+                                    &[href="/"],
+                                    &[href^="/?"] {
                                         color: _c_f_uname_link;
                                     }
                                     // stitch|duet|answer box
@@ -1350,9 +1351,10 @@ backdrop() {
                                 &[href^="/tag/"] {
                                     color: _c_f_hashtag;
                                 }
-                                // usernames
+                                // username mention
                                 &[href^="/@"],
-                                &[href="/"] {
+                                &[href="/"],
+                                &[href^="/?"] {
                                     color: _c_f_uname_link;
                                 }
                                 // stitch|duet|answer box
@@ -1889,13 +1891,16 @@ backdrop() {
     }
         
     // modal popups
-    div[class*="-DivModalContainer"] > div {
+    div[class*="-DivModalContainer"] > div,
+    #tux-portal-container .tiktok-roynbj > div {
         // backdrop
-        &[class*="-DivModalMask"] {
+        &[class*="-DivModalMask"],
+        &[class="tiktok-1szbqeh"] {
             backdrop();
         }
         // content
-        &[class*="-DivContentContainer"] {
+        &[class*="-DivContentContainer"],
+        &[class="tiktok-y7zbji"] section {
             background: c-darker;
             > div {
                 // when leaving page while having text in comment section
@@ -2399,6 +2404,7 @@ backdrop() {
                     }
                 }
             }
+            // when reporting Profile, Hashtag, or Music page
             > form {
                 background-color: transparent;
                 > div {
@@ -2910,9 +2916,10 @@ backdrop() {
                             &[href^="/tag/"] {
                                 color: _c_f_hashtag;
                             }
-                            // usernames
+                            // username mention
                             &[href^="/@"],
-                            &[href="/"] {
+                            &[href="/"],
+                            &[href^="/?"] {
                                 color: _c_f_uname_link;
                             }
                             // stitch|duet|answer box
