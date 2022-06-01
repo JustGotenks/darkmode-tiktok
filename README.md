@@ -65,3 +65,6 @@ Send me a DM on Discord (`Gotenks#2041`) or any other place you have me on, and 
 
 ## Issues
 I don't think there's any issues yet, but if there then create an [issue](https://github.com/iGotenks/darkmode-tiktok/issues) and I'll try to fix it.
+
+
+## [Changelog](./CHANGELOG.md)
