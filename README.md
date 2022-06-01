@@ -8,29 +8,29 @@ A dark theme for TikTok with a few customizations using [Stylus](https://github.
 
 ## Features
 
-Main color options
-* Top bar Background
-* Side bar Background
-* Page Background
+Main color
+  * Top bar Background
+  * Side bar Background
+  * Page Background
 
-Side bar options
-* colors:
+Side bar
+  * colors:
     * Selected (current page)
     * Unselected
     * Titles ("Popular topics", "Suggested accounts", "Following accounts", etc)
     * Username
     * Name
     * Discover (hashtags and music bubbles)
-* remove sections:
+  * remove sections:
     * "Popular topics"
     * "Suggested accounts"
     * "Following accounts"
     * "Discover"
     * "Suggested hosts"
-    * Footer ("About", "Newroom", etc)
+    * Footer ("About", "Newsroom", etc)
 
-Video Feed options
-* colors:
+Video Feed
+  * colors:
     * Username (the user who posted the video)
     * Name (the user who posted the video)
     * Date/Time
@@ -40,12 +40,9 @@ Video Feed options
     * S.A.D. box (Stitch|Answer|Duet)
     * S.A.D. Username
     * S.A.D. Icon
-* **Note:** The options above apply to 2 different views. 
-    * Main pages ("For You", "Following", any topics page)
-    * Video feed (when user clicks a video from one of the Main pages)
 
-LIVE Chat options
-* remove from chat:
+LIVE Chat
+  * remove from chat:
     * Regular text
     * "\<user> followed the host" + "\<user> shared the LIVE video"
     * "\<user> sent likes to the host"

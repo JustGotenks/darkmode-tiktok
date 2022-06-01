@@ -7,7 +7,7 @@
 @updateURL      https://userstyles.world/api/style/4928.user.css
 @author         Gotenks (https://github.com/iGotenks)
 @license        MIT
-@version        1.1.0
+@version        1.1.1
 @preprocessor   stylus
 
 
@@ -1048,45 +1048,50 @@ backdrop() {
             [data-e2e="nav-login-button"] {
                 buttonRed();
             }
+        }
 
-            //// for removing sections
-            // "Popular topics"
-            if _r_sb_topics {
-                &[class*="-DivTopicContainer"] {
-                    display: none;
-                }
-            }
+        ////////
+        // for removing sections
+        ////////
+        _r_sb_sec(toRemove_) {
+            display: toRemove_ ? none : block;
+        }
+
+        // "Popular topics"
+        [class*="-DivTopicContainer "] {
+            _r_sb_sec(_r_sb_topics);
+        }
+        // "Discover"
+        [class*="-DivDiscoverContainer "] {
+            _r_sb_sec(_r_sb_discover);
+        }
+        // "Suggested hosts"
+        [class*="-DivSideNavChannel "] {
+            _r_sb_sec(_r_sb_suggested_h);
+        }
+        // Footer
+        [class*="-DivFooterContainer "] {
+            _r_sb_sec(_r_sb_footer);
+        }
+        // scroll bar with both "Suggested accounts" and "Following accounts"
+        &[class*="1cx1pch"] {
             // "Suggested accounts"
-            if _r_sb_suggested {
-                &[class*="-DivUserContainer"]:nth-child(3) {
-                    display: none;
-                }
+            [class*="-DivUserContainer"]:nth-child(3) {
+                _r_sb_sec(_r_sb_suggested);
             }
             // "Following accounts"
-            if _r_sb_following {
-                &[class*="-DivUserContainer"]:nth-child(4) {
-                    display: none;
-                }
-            }
-            // "Discover"
-            if _r_sb_discover {
-                &[class*="-DivDiscoverContainer"] {
-                    display: none;
-                }
-            }
-            // "Suggested hosts"
-            if _r_sb_suggested_h {
-                &[class*="-DivSideNavChannel"] {
-                    display: none;
-                }
-            }
-            // Footer
-            if _r_sb_footer {
-                &[class*="-DivFooterContainer"] {
-                    display: none;
-                }
+            [class*="-DivUserContainer"]:nth-child(4) {
+                _r_sb_sec(_r_sb_following);
             }
         }
+        // scroll bar without both "Suggested accounts" and "Following accounts"
+        &[class*="w9wcox"] {
+            // "Following accounts"
+            [class*="-DivUserContainer"]:nth-child(3) {
+                _r_sb_sec(_r_sb_following);
+            }
+        }
+
     }
 
 
