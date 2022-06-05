@@ -3,7 +3,7 @@
 
 
 ## Description
-A dark theme for TikTok with a few customizations using [Stylus](https://github.com/openstyles/stylus).
+A dark theme for TikTok with a few customizations using [Stylus](https://github.com/openstyles/stylus). Check out my userstyle, and others, on [userstyles.world](https://userstyles.world/style/4928/tiktok-dark-mode).
 
 
 ## Features

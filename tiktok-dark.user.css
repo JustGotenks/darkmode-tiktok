@@ -7,7 +7,7 @@
 @updateURL      https://userstyles.world/api/style/4928.user.css
 @author         Gotenks (https://github.com/iGotenks)
 @license        MIT
-@version        1.1.1
+@version        1.2.0
 @preprocessor   stylus
 
 
@@ -2235,6 +2235,9 @@ backdrop() {
                         }
                         // form ("Log in")
                         form {
+                            button[disabled][type="submit"] {
+                                buttonRedFullDisabled();
+                            }
                             // "Email or username" / "Phone"
                             [class*="DivDescription "] {
                                 color: c-lightest;
@@ -2470,7 +2473,8 @@ backdrop() {
     [class*="-DivCloseIconContainer "],
     [class*="-DivXMarkWrapper"],
     [class*="DivIconContain "],
-    span.jsx-4107332755 {
+    span.jsx-4107332755,
+    [class*="-ButtonCloseWrapper"] {
         &:hover svg path {
             fill: c-white;
         }
@@ -4479,7 +4483,7 @@ backdrop() {
     /***************/
 
 
-    // "Log in to TikTok"
+    // "Log in to TikTok" - /login | /signup
     #app > [class*="DivContainer "] > div {
         // top bar
         &[class*="DivHeaderContainer "] {
@@ -4520,8 +4524,11 @@ backdrop() {
             [class*="DivTipImageMask "] {
                 background-color: c-black ;
             }
-            // form ("Log in")
+            // form ("Log in" | "Sign up")
             form {
+                button[disabled][type="submit"] {
+                    buttonRedFullDisabled();
+                }
                 // "Email or username" / "Phone"
                 [class*="DivDescription "] {
                     color: c-lightest;
@@ -4630,11 +4637,6 @@ backdrop() {
 
                     &:focus-within {
                         border-color: c-middle;
-                        input {
-                            &::placeholder {
-                                color: c-light;
-                            }
-                        }
                     }
                     // text
                     input {
@@ -4702,6 +4704,403 @@ backdrop() {
                     color: c-lightest;
                 }
             }
+        }
+    }
+
+    // "Log in to TikTok" - 2
+    html {
+        // popup
+        &[style*="overflow-y"] {
+            // "See how" hover popup ("Log in with QR code")
+            [class^="tip-img-mask-"] {
+                background-color: c-darker !important;
+            }
+            // footer
+            [class^="footer-"] {
+                > [class^="footer-signup-agreement"] {
+                    background-color: c-darker;
+                }
+                > [class*="toggle"] {
+                    background-color: transparent;
+                }
+            }
+        }
+
+        // /login | /signup
+        &:not([style*="overflow-y"]) {
+            // "See how" hover popup ("Log in with QR code")
+            [class^="tip-img-mask-"] {
+                background-color: c-black !important;
+            }
+            // footer
+            [class^="footer-"] {
+                > [class^="footer-signup-agreement"] {
+                    background-color: c-black;
+                }
+                > [class*="toggle"] {
+                    background-color: c-black;
+                }
+            }
+        }
+
+        // popup + /login
+        #root > [class*="-app-container-"] {
+            background: transparent;
+            * {
+                font-weight: normal;
+            }
+            
+            > [class*="-web-header-"],
+            > [class*="-web-body-"] {
+                background-color: transparent;
+                &[class*="modal"] {
+                    background-color: c-darker;
+                }
+            }
+            // topbar (/login) - logo
+            a[class^="header-logo"] {
+                inv();
+            }
+            // topbar (/login) - "Feedback and held"
+            a[class^="help-center"] > span {
+                // icon
+                &[class^="help-icon"] {
+                    -webkit-mask: url("//lf16-tiktok-web.tiktokcdn-us.com/obj/tiktok-web-tx/tiktok/webapp_login/svgs/help.a708bf24.svg") center / 19.5px no-repeat;
+                            mask: url("//lf16-tiktok-web.tiktokcdn-us.com/obj/tiktok-web-tx/tiktok/webapp_login/svgs/help.a708bf24.svg") center / 19.5px no-repeat;
+                    background-image: none;
+                    background-color: c-lighterer;
+                }
+                // text
+                &[class^="help-text"] {
+                    color: c-light;
+                    &:hover {
+                        text-decoration: underline;
+                    }
+                }
+            }
+
+            // back button
+            [class^="back-modal"] {
+                -webkit-mask: url("//lf16-tiktok-web.tiktokcdn-us.com/obj/tiktok-web-tx/tiktok/webapp_login/svgs/back_modal.bbfe2402.svg") center / 24px no-repeat;
+                        mask: url("//lf16-tiktok-web.tiktokcdn-us.com/obj/tiktok-web-tx/tiktok/webapp_login/svgs/back_modal.bbfe2402.svg") center / 24px no-repeat;
+                background: none;
+                background-color: c-lighter;
+                &:hover {
+                    background-color: c-white;
+                }
+            }
+
+            // title
+            [class^="login-title-"] {
+                color: c-white;
+            }
+            // description
+            [class^="login-desc-"] {
+                color: c-lighter;
+            }
+            // middle
+            > [class^="tiktok-web-body-"] {
+                // "Continue with ..." items container
+                [class^="social-container-"] {
+                    // "Continue with ..." items
+                    [class^="channel-item-wrapper"] {
+                        border-color: c-dark;
+                        &:hover {
+                            bgHover();
+                        }
+                        [class^="channel-icon"] {
+                            &:not([style]) {
+                                border-right: 0;
+                            }
+                            // icons
+                            &[style*="QR_Code"],
+                            &[style*="ZPKTUEzQAAAAB"] {
+                                inv();
+                            }
+
+                        }
+                        // text
+                        [class^="channel-name"] {
+                            color: c-lightest;
+                        }
+                    }
+                    // down arrow (more)
+                    > [class*="show-more-"] > span {
+                        -webkit-mask: url("//lf16-tiktok-web.tiktokcdn-us.com/obj/tiktok-web-tx/tiktok/webapp_login/svgs/back.e67697d0.svg") center / 8px no-repeat;
+                                mask: url("//lf16-tiktok-web.tiktokcdn-us.com/obj/tiktok-web-tx/tiktok/webapp_login/svgs/back.e67697d0.svg") center / 8px no-repeat;
+                        background: none;
+                        background-color: c-lightest;
+                        -webkit-mask-position: 9px;
+                                mask-position: 9px;
+                        width: 20px;
+                        height: 20px;
+                    }
+                }
+
+                // QR Code
+                [class^="qrcode-container"] {
+                    // steps ("Log in with QR code")
+                    [class^="tips-"] > p {
+                        color: c-lightest;
+                        [class^="scan-"] {
+                            -webkit-mask: url("//lf16-tiktok-web.tiktokcdn-us.com/obj/tiktok-web-tx/tiktok/webapp_login/svgs/Scan.9d996457.svg") center / 16px no-repeat;
+                                    mask: url("//lf16-tiktok-web.tiktokcdn-us.com/obj/tiktok-web-tx/tiktok/webapp_login/svgs/Scan.9d996457.svg") center / 16px no-repeat;
+                            background: none;
+                            background-color: c-lightest;
+                        }
+                    }
+                }
+
+                // "Go back" (/login only)
+                a[class*=" back-"] {
+                    transition: none;
+                    text-decoration: none;
+                    color: c-lighter;
+                    > div {
+                        -webkit-mask: url("//lf16-tiktok-web.tiktokcdn-us.com/obj/tiktok-web-tx/tiktok/webapp_login/svgs/back_bold.9a9bc698.svg") center / 12px no-repeat;
+                                mask: url("//lf16-tiktok-web.tiktokcdn-us.com/obj/tiktok-web-tx/tiktok/webapp_login/svgs/back_bold.9a9bc698.svg") center / 12px no-repeat;
+                        background: none;
+                        background-color: c-lighter;
+                    }
+                    &:hover {
+                        color: c-white;
+                        > div {
+                            background-color: c-white;
+                        }
+                    }
+                }
+
+                // form ("Log in" | "Sign up")
+                form {
+                    button[disabled][type="submit"] {
+                        buttonRedFullDisabled();
+                    }
+                    // login type description
+                    [class^="title-wrapper-"] {
+                        // "Phone" | "Email or Username"
+                        div {
+                            color: c-lightest;
+                        }
+                        // "Log in with email or username" | "Log in with phone"
+                        a {
+                            color: c-lighter;
+                        }
+                    }
+                    // dropdown select boxes ("When’s your birthday?")
+                    [class*="date-selector-"] > [class*="selector-container"] {
+                        background-color: c-darkest;
+                        // quick preview of selected item
+                        [class^="select-container"] {
+                            color: c-lightest;
+                            &[class*="not-selected"] {
+                                color: c-light;
+                            }
+                            &::after {
+                                -webkit-mask: url("//lf16-tiktok-web.tiktokcdn-us.com/obj/tiktok-web-tx/tiktok/webapp_login/svgs/openSelector.3e786e4d.svg") center / 20px no-repeat;
+                                        mask: url("//lf16-tiktok-web.tiktokcdn-us.com/obj/tiktok-web-tx/tiktok/webapp_login/svgs/openSelector.3e786e4d.svg") center / 20px no-repeat;
+                                background: none;
+                                background-color: c-white;
+                            }
+                        }
+                        // items box
+                        > ul {
+                            background-color: c-darkest;
+                            // items
+                            li {
+                                &:hover {
+                                    bgHover();
+                                }
+                                color: c-lighterer;
+                                img {
+                                    -webkit-mask: url("//lf16-tiktok-web.tiktokcdn-us.com/obj/tiktok-web-tx/tiktok/webapp_login/svgs/selector-checked.b887f706.svg") center / 16px no-repeat;
+                                            mask: url("//lf16-tiktok-web.tiktokcdn-us.com/obj/tiktok-web-tx/tiktok/webapp_login/svgs/selector-checked.b887f706.svg") center / 16px no-repeat;
+                                    border: 8px solid c-white;
+                                }
+                            }
+                        }
+                    }
+                    // "Your birthday won't be shown publicly."
+                    [class^="sub-title"] {
+                        color: c-lightest;
+                    }
+
+                    // "Email address" + password boxes
+                    [class^="form-container-"] > [class^="input-field"] {
+                        border-color: c-dark;
+                    }
+
+                    // "Phone number" box
+                    [class^="input-field"] {
+                        // (country/country code) + (country popup)
+                        > [class*="selector-container"] {
+
+                            // (country/country code)
+                            > [class^="select-container"] {
+                                color: c-white;
+                                &::after {
+                                    -webkit-mask: url("//lf16-tiktok-web.tiktokcdn-us.com/obj/tiktok-web-tx/tiktok/webapp_login/svgs/openSelector.3e786e4d.svg") center / 20px no-repeat;
+                                            mask: url("//lf16-tiktok-web.tiktokcdn-us.com/obj/tiktok-web-tx/tiktok/webapp_login/svgs/openSelector.3e786e4d.svg") center / 20px no-repeat;
+                                    background: none;
+                                    background-color: c-white;
+                                }
+                            }
+                            // popup - search box
+                            > [class^="search"] {
+                                width: 331px;
+                                background-color: c-darkest;
+                                border: 1px solid c-divider;
+                                border-radius: 4px 4px 0 0;
+                                top: 47px; 
+                                // search icon
+                                &::after {
+                                    -webkit-mask: url("//lf16-tiktok-web.tiktokcdn-us.com/obj/tiktok-web-tx/tiktok/webapp_login/svgs/search.73141555.svg") center / 14px no-repeat;
+                                            mask: url("//lf16-tiktok-web.tiktokcdn-us.com/obj/tiktok-web-tx/tiktok/webapp_login/svgs/search.73141555.svg") center / 14px no-repeat;
+                                    background: none;
+                                    background-color: c-white;
+                                }
+                            }
+                            // popup - country item container
+                            > ul {
+                                background-color: c-darkest;
+                                border-color: c-divider;
+                                // items
+                                > li {
+                                    &:hover {
+                                        bgHover();
+                                    }
+                                    span {
+                                        color: c-lighterer;
+                                        span[style] {
+                                            color: my-blue !important;
+                                        }
+                                    }
+                                    // checkmark image
+                                    img {
+                                        inv();
+                                    }
+                                }
+                            }
+                        }
+                        p[class^="separator-"] {
+                            bgDivider();
+                        }
+                    }
+
+                    // "Enter 6-digit code" box
+                    [class^="digit-code-"] > [class^="input-field"] {
+                        border-color: c-dark;
+
+                        // "Send code" button
+                        + button {
+                            color: c-lightest !important;
+                            background-color: c-black !important;   // TODO: seperate after
+                            border-color: c-dark !important;
+                            border-left: 0 !important;
+                            height: 47px !important;
+                            &[disabled] {
+                                color: rgba(c-lightest, 0.25) !important;
+                            }
+                        }
+                    }
+
+                    // password requirements
+                    [class^="form-container"] > [class^="tips-wrapper"] {
+                        // "Your password must have:"
+                        > [class^="tips-title"] {
+                            color: c-white;
+                        }
+                        > div > div {
+                            // regular text without error or success
+                            color: c-lighter;
+                            &[class*="success"] {
+                                color: my-blue;
+                                &::before {
+                                    background-color: my-blue;
+                                }
+                            }
+                            &[class*="fail"] {
+                                color: tiktok-red;
+                                &::before {
+                                    background-color: tiktok-red;
+                                }
+                            }
+                            // checkmark icon
+                            &::before {
+                                -webkit-mask: url("//lf16-tiktok-web.tiktokcdn-us.com/obj/tiktok-web-tx/tiktok/webapp_login/svgs/password_ok.e337a4b2.svg") center / 16px no-repeat;
+                                        mask: url("//lf16-tiktok-web.tiktokcdn-us.com/obj/tiktok-web-tx/tiktok/webapp_login/svgs/password_ok.e337a4b2.svg") center / 16px no-repeat;
+                                background: none;
+                                background-color: c-white;
+                            }
+                        }
+                    }
+
+                    // "Log in with password" | "Forgot password?" | "Log in with code"
+                    a[class^="small-"][class*=" link-"] {
+                        color: c-lighter;
+                    }
+                    
+                    // input boxes style
+                    [class^="input-field"] {
+                        background-color: c-darkest;
+                        border: 1.5px solid c-dark;
+                        // border-radius: 4px;
+
+                        &[class*="error"] {
+                            border-color: tiktok-red;
+                        }
+
+                        &:focus-within:not([class*="error"]) {
+                            border-color: c-lighter;
+                        }
+                        // text
+                        input {
+                            background-color: transparent;
+                            // background-color: rgba(c-darkest, 0.10);
+                            color: c-lightest;
+                            &::placeholder {
+                                color: c-middle;
+                            }
+                            // if contains error
+                            ^[-1][class*="error"] input {
+                                color: tiktok-red;
+                            }
+                        }
+                        // password icon
+                        > p[class*="-password-"] {
+                            background: none;
+                            background-color: c-white;
+                            &[class^="hide"] {
+                                -webkit-mask: url("//lf16-tiktok-web.tiktokcdn-us.com/obj/tiktok-web-tx/tiktok/webapp_login/svgs/hidePassword.d3d87c2c.svg") center / 20px no-repeat;
+                                        mask: url("//lf16-tiktok-web.tiktokcdn-us.com/obj/tiktok-web-tx/tiktok/webapp_login/svgs/hidePassword.d3d87c2c.svg") center / 20px no-repeat;
+                            }
+                            &[class^="show"] {
+                                -webkit-mask: url("//lf16-tiktok-web.tiktokcdn-us.com/obj/tiktok-web-tx/tiktok/webapp_login/svgs/showPassword.3eea0a28.svg") center / 20px no-repeat;
+                                        mask: url("//lf16-tiktok-web.tiktokcdn-us.com/obj/tiktok-web-tx/tiktok/webapp_login/svgs/showPassword.3eea0a28.svg") center / 20px no-repeat;
+                            }
+                        }
+                    }
+                }
+            }
+            // footer
+            > [class^="footer-"] {
+                > [class*="toggle"] {
+                    border-color: c-divider;
+                    // "Already have an account?" | "Don’t have an account?"
+                    > [class^="to-login"] {
+                        color: c-light;
+                    }
+                }
+                > [class^="footer-signup-agreement"] div:not([class]):not([style]) {
+                    color: c-lighter;
+                    a {
+                        color: c-lightest;
+                        &:hover {
+                            text-decoration: underline;
+                        }
+                    }
+                }
+            }
+
         }
     }
 
